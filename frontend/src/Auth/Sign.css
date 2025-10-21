@@ -1,0 +1,93 @@
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .signup-form {
+    background: #1f1f3a; /* lighter than container */
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    width: 350px;
+  }
+  
+  .signup-form h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ffffff;
+  }
+  
+  .form-group {
+    position: relative;
+    margin-bottom: 25px;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 12px 10px;
+    font-size: 16px;
+    border: 1px solid #444466;
+    border-radius: 6px;
+    outline: none;
+    background: #2a2a40; /* input more visible */
+    color: #ffffff;
+    transition: all 0.3s ease;
+  }
+  
+  .form-group input:focus {
+    border-color: #6c63ff; /* focus highlight */
+  }
+  
+  .form-group label {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    color: #aaaaff;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+  
+  .form-group input:focus + label,
+  .form-group input:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 10px;
+    font-size: 12px;
+    color: #6c63ff;
+    background: #1f1f3a;
+    padding: 0 4px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 12px;
+    background: #6c63ff;
+    border: none;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  button:hover {
+    background: #5750c6;
+  }
+  
+  .existingAccount {
+    display: block;       /* makes it take full width */
+    text-align: center;   /* centers the text */
+    margin-top: 15px;     /* spacing from the button */
+    color: #6c63ff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+  }
+  
+  .existingAccount:hover {
+    color: #5750c6;
+  }
+  

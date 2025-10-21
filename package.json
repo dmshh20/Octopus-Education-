@@ -1,0 +1,25 @@
+{
+  "name": "kursiva",
+  "version": "1.0.0",
+  "description": "my kursova",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:frontend": "npm run dev --prefix  frontend",
+    "start:backend": "npm run start:dev --prefix  backend",
+    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\""
+  },
+  "author": "artem dmysh",
+  "license": "ISC",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.1.0",
+    "@fortawesome/react-fontawesome": "^3.1.0",
+    "@nestjs/mapped-types": "*",
+    "bcrypt": "^6.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "mysql2": "^3.15.1",
+    "react-router-dom": "^7.9.4",
+    "typeorm": "^0.3.27"
+  }
+}

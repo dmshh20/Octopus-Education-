@@ -1,0 +1,89 @@
+.firstStage {
+  position: relative;       /* контейнер для абсолютного позиціонування */
+  margin: 0;
+  padding: 0;
+  height: 700px;            /* підбираєш під свій контент */
+}
+
+.firstStage img {
+  position: absolute;
+  right: 0;                 /* прилягає до правого краю */
+  top: 50%;
+  transform: translateY(-50%); /* вертикально по центру */
+  max-width: 200px;         /* підбираєш під своє фото */
+  height: auto;
+}
+
+.firstStage p {
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); /* по центру екрану */
+  width: 60%;                /* ширина текстового блоку */
+  margin: 0;
+  font-size: 25px;
+  color: #e6e6fa; /* світло-фіолетовий / лавандовий */
+
+}
+
+.secondStage {
+  position: relative;       /* контейнер для абсолютного позиціонування */
+  margin: 0;
+  padding: 0;
+  height: 700px;            /* підбираєш під свій контент */
+}
+
+.secondStage img {
+  position: absolute;
+  left: 0;                  /* прилягає до лівого краю */
+  top: 50%;
+  transform: translateY(-50%); /* вертикально по центру */
+  max-width: 200px;         /* підбираєш під своє фото */
+  height: auto;
+}
+
+
+.secondStage p {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: #e6e6fa;
+  margin-bottom: 30px;
+}
+
+.secondStage ul {
+  list-style: none; /* remove default bullets */
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* space between items */
+  max-width: 700px;
+  margin: 0 auto; /* center the list */
+}
+
+.secondStage li {
+  background-color: rgba(255, 255, 255, 0.1); /* semi-transparent background */
+  padding: 20px 20px;
+  border-radius: 10px;
+  font-size: 20px;
+  line-height: 1.5;
+  position: relative;
+  transition: transform 0.3s, background-color 0.3s;
+   padding-left: 50px;
+}
+
+.secondStage li::before {
+  content: '✓'; /* checkmark icon */
+  color: #5ac8fa; /* accent color for the checkmark */
+  font-weight: bold;
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.secondStage li:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* hover effect */
+  transform: translateX(5px); /* subtle slide effect */
+}

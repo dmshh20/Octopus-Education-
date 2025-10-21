@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  db:
+    image: 'postgres:13'
+    ports:
+      - 5434:5432
+    environment:
+      - TZ=Europe/Kyiv
+      - PGTZ=Europe/Kyiv
+      - POSTGRES_USER=user
+      - POSTGRES_DB=user_db
+      - POSTGRES_PASSWORD=1111
+    networks:
+      - cluster-network
+
+networks:
+  cluster-network:
