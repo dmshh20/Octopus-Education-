@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Sign.css';
@@ -19,13 +19,14 @@ const SignIn = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setErrorMessage(''); // clear previous errors
+    setErrorMessage('');
 
     try {
       const response = await axios.post(
-        'http://localhost:3000/auth/signin',
+      process.env.REACT_APP_BACKEND_SIGNIN as string
+      ,
         {
           email: formData.email,
           password: formData.password,
@@ -82,7 +83,7 @@ const SignIn = () => {
           <label>Password</label>
         </div>
 
-        <button type="submit">Sign In</button>
+        <button type="submit" className='signing-btn'>Sign In</button>
 
         <Link to="/signup" className="existingAccount">
           Haven't an account yet?

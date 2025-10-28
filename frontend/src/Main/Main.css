@@ -5,14 +5,14 @@
   height: 700px;            /* підбираєш під свій контент */
 }
 
-.firstStage img {
+/* .firstStage img {
   position: absolute;
-  right: 0;                 /* прилягає до правого краю */
+  right: 0;                 
   top: 50%;
-  transform: translateY(-50%); /* вертикально по центру */
-  max-width: 200px;         /* підбираєш під своє фото */
+  transform: translateY(-50%);
+  max-width: 200px;        
   height: auto;
-}
+} */
 
 .firstStage p {
   text-align: center;
@@ -27,63 +27,177 @@
 
 }
 
+
+.about-school {
+  margin-left: 200px;
+  color: white;
+  height: 50px;
+  padding-top: 100px;
+  font-weight: 600;
+}
+
+.inside-first {
+  background-color: #1b1b32;
+  height: 500px;
+}
+.school-features1 {
+  background-color: white;
+  width: 270px;
+  padding: 7px 10px;
+  border-radius: 12px;
+  margin-left: 200px;
+  margin-top: 60px;
+  font-size: 18px;
+  font-weight: 340;
+  box-shadow: 20px 10px 20px rgba(0, 0, 0, 0.445);
+}
+.school-features2 {
+  background-color: white;
+  width: 210px;
+  padding: 7px 10px;
+  border-radius: 12px;
+  margin-left: 200px;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 340;
+  box-shadow: 20px 10px 20px rgba(0, 0, 0, 0.445);
+  
+}
 .secondStage {
-  position: relative;       /* контейнер для абсолютного позиціонування */
-  margin: 0;
-  padding: 0;
-  height: 700px;            /* підбираєш під свій контент */
+  height: 300px;
 }
 
-.secondStage img {
-  position: absolute;
-  left: 0;                  /* прилягає до лівого краю */
-  top: 50%;
-  transform: translateY(-50%); /* вертикально по центру */
-  max-width: 200px;         /* підбираєш під своє фото */
-  height: auto;
+.school-features3 {
+  background-color: white;
+  width: 310px;
+  padding: 7px 10px;
+  border-radius: 12px;
+  margin-left: 200px;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 340;
+  box-shadow: 20px 10px 20px rgba(0, 0, 0, 0.445);
+
 }
 
-
-.secondStage p {
-  text-align: center;
-  font-size: 28px;
-  font-weight: bold;
-  color: #e6e6fa;
-  margin-bottom: 30px;
+::selection {
+  color: white;
+  background: #3b3b4f;
 }
 
-.secondStage ul {
-  list-style: none; /* remove default bullets */
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 15px; /* space between items */
-  max-width: 700px;
-  margin: 0 auto; /* center the list */
-}
-
-.secondStage li {
-  background-color: rgba(255, 255, 255, 0.1); /* semi-transparent background */
-  padding: 20px 20px;
-  border-radius: 10px;
-  font-size: 20px;
-  line-height: 1.5;
+.mainPhoto {
   position: relative;
-  transition: transform 0.3s, background-color 0.3s;
-   padding-left: 50px;
+  top: -450px;
+  left: 900px;
+  height: 400px;
 }
 
-.secondStage li::before {
-  content: '✓'; /* checkmark icon */
-  color: #5ac8fa; /* accent color for the checkmark */
-  font-weight: bold;
-  position: absolute;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+.trial-steps {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* gap: 65px; */
+  gap: 25px;
 }
 
-.secondStage li:hover {
-  background-color: rgba(255, 255, 255, 0.2); /* hover effect */
-  transform: translateX(5px); /* subtle slide effect */
+.step {
+  position: relative;
+  top: -160px;
+  width: 240px;
+  height: 170px;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 16px;
+}
+.step-icon {
+  height: 50px;
+  margin-bottom: 10px;
+}
+.fa-arrow-right {
+  position: relative;
+  top: -155px;
+  font-size: 16px;
+  /* color: #FDEB9E; */
+  color: #FFC94A;
+}
+.secondStage .trial-session {
+  display: flex;
+  margin: auto;
+  padding: 20px 40px;
+  border-radius: 24px;
+  border: 2px solid #fecc4c;
+  font-size: 18px;
+  cursor: pointer;
+  font-weight: 500;
+  background-image: linear-gradient(to right top, #ffb800, #f1be10, #e3c41f, #d6c92e, #c9cd3c);
+  position: relative;
+  z-index: 100;
+}
+
+.button-wrapper-styles {
+  position: relative;
+  z-index: 1;
+}
+
+.message-fill-in-the-form {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 50px;
+  font-weight: 700;
+}
+
+.trial-reg-form {
+    position: relative;
+    margin-bottom: 25px;
+  }
+  
+  .trial-reg-form input {
+    width: 300px;
+    padding: 12px 10px;
+    font-size: 16px;
+    border: 1px solid #444466;
+    border-radius: 6px;
+    outline: none;
+    background: #2a2a40;  
+    color: #ffffff;
+    transition: all 0.3s ease;  
+  }
+  
+  .trial-reg-form input:focus {
+    border-color: #6c63ff; /* focus highlight */
+  }
+  
+  .trial-reg-form label {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    color: #aaaaff;
+    pointer-events: none;
+    transition: all 0.3s ease;
+  }
+  
+  .trial-reg-form input:focus + label,
+  .trial-reg-form input:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 10px;
+    font-size: 12px;
+    color: #6c63ff;
+    background: #1f1f3a;
+    padding: 0 4px;
+  }
+
+.enroll-session-form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 70px;
+    position: relative;
+    margin-bottom: 20px;
+
+}
+.enroll-to-the-session {
+  margin: auto;
+  display: flex;
+  
 }

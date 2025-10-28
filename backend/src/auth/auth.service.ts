@@ -1,4 +1,4 @@
-import { Injectable, ConflictException, BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, ConflictException, BadRequestException, HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
@@ -6,12 +6,16 @@ import { SignUpDto } from './dto/signUp.dto.entity';
 import * as bcrypt from 'bcrypt'
 import { SignInDto } from './dto/signIn.dto.entity';
 import { JwtService } from '@nestjs/jwt';
+import { Role } from 'src/entities/role.entity';
 
 @Injectable()
 export class AuthService {
     constructor(
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
+
+        @InjectRepository(Role)
+        private readonly roleRepository: Repository<Role>,
         private jwt: JwtService
         
     ) {}
@@ -27,13 +31,19 @@ export class AuthService {
             }
             
             const hash = await bcrypt.hash(signUpDto.password,10)
+            const role = await this.roleRepository.findOneBy({roleId: 1})
+
+            if (!role) {
+                throw new BadRequestException('Role is not found')
+            }
 
             const user = this.userRepository.create({
                 firstName: signUpDto.firstName,
                 secondName: signUpDto.secondName,
                 email: signUpDto.email,
-                password: hash, 
-            });
+                password: hash,
+                role: role
+             });
 
             const savedUser = await this.userRepository.save(user);
 
@@ -54,14 +64,15 @@ export class AuthService {
     async signIn(dto: SignInDto): Promise<{message: string, access_token: string}> {
         try {
              const existingUser = await this.userRepository.findOne({
-                where: {email: dto.email}
+                where: {email: dto.email},
+                relations: ['role']
              })
 
              if (!existingUser) {
                 throw new BadRequestException('User does not exist')
              }
              
-             const payload = {email: existingUser.email}
+             const payload = {email: existingUser.email, roleId: existingUser.role.roleId}
              const accessToken = await this.jwt.sign(payload)
 
 

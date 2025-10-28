@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Sign.css'
 
 const SignUp = () => {
   const navigate = useNavigate()
+  const [error, setError] = useState<string | null>(null)
   const [formData, setFormData] = useState({
     firstName: '',
     secondName: '',
@@ -13,28 +14,42 @@ const SignUp = () => {
     confirmPassword: '',
   });
 
-  const handleChange = (e: any): any => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): any => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-   const handleSubmit = async (e: any) => {
+   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log('DATA:: ',formData);
-    const request = await axios.post('http://localhost:3000/auth/signup', {
-        firstName: formData.firstName,
-        secondName: formData.secondName,
-        email: formData.email,
-        password: formData.password,
-        confirmPassword: formData.confirmPassword
-      }, {
-        headers: {'Content-Type': 'application/json'},
+    try {
+          const request = await axios.post(
+          process.env.REACT_APP_BACKEND_SIGNUP as string
+          , {
+            firstName: formData.firstName,
+            secondName: formData.secondName,
+            email: formData.email,    
+            password: formData.password,
+            confirmPassword: formData.confirmPassword
+          }, {
+            headers: {'Content-Type': 'application/json'},
 
-      })
+          })
 
-    if (request) {
-      navigate('/')
-    } else {
-      throw new Error("Invalid Credentials")
+          const emailRegex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/
+          if (!emailRegex.test(formData.email)) {
+            setError('Email is not valid')
+          }
+
+          if (formData.password !== formData.confirmPassword) {
+            setError('Passwords dont match')
+          }
+
+        if (request.status === 201) {
+          navigate('/')
+        } else {
+          throw new Error("Invalid Credentials")
+        }
+    } catch(error) {
+      throw error
     }
 
 
@@ -44,6 +59,8 @@ const SignUp = () => {
     <div className="signup-container">
       <form className="signup-form" onSubmit={handleSubmit}>
         <h2>Create Account</h2>
+
+        {error && <h2 className='error-message'>{error}</h2>}
 
         <div className="form-group">
           <input 
@@ -100,7 +117,7 @@ const SignUp = () => {
           <label>Confirm Password</label>
         </div>
 
-        <button type="submit">Sign Up</button>
+        <button type="submit" className='signing-btn'>Sign Up</button>
         <Link to={'/signin'} className='existingAccount'>Haven't an account yet?</Link>
 
       </form>

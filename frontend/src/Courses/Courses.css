@@ -1,0 +1,117 @@
+/* --- Global Container Styles --- */
+.section-courses {
+    /* Basic container, adjust as needed */
+    padding: 20px;
+}
+
+.courses-info {
+    text-align: center;
+    margin-top: 50px;
+    color: #ffffff;
+    font-weight: 1000;
+}
+
+/* --- Grid for Course Cards --- */
+.available-courses {    
+    display: grid;
+    /* Removed align-items and justify-content from grid container 
+       as grid-template-columns is fixed */
+    grid-template-columns: 230px 230px 230px 230px;
+    /* Center the entire grid container */
+    justify-content: center;
+    margin-top: 50px;
+    gap: 20px; /* Increased gap for better spacing */
+}
+
+/* --- Individual Course Card --- */
+.course {
+    border: 2px solid white;
+    background-color: rgba(255, 255, 255, 0.174);
+    border-radius: 12px;
+    width: 230px;
+    height: 230px;
+    
+    /* CRITICAL FIX: Base for absolute positioning */
+    position: relative; 
+    
+    /* Ensure nothing overflows */
+    overflow: hidden; 
+
+    /* Removed grid/flex from the .course itself to manage children with absolute positioning */
+}
+
+/* --- Image Card (The Element That Was Overlapping) --- */
+.image-card {
+    height: 200px;
+    width: auto; /* Allows the image to scale naturally */
+    max-width: 100%;
+    
+    position: absolute;
+    
+    /* Center the image within the .course container */
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    /* LOWER Z-INDEX: The image sits *under* the text and button */
+    z-index: 1; 
+
+    /* Removed unnecessary padding-left and margin-bottom */
+}
+
+/* --- Top Description (About Course) --- */
+.course .about-course {
+    position: absolute;
+    top: 10px; /* Position at the top */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    text-align: center;
+    color: white;
+    
+    /* HIGH Z-INDEX: Sits above the image */
+    z-index: 5; 
+}
+
+/* --- Bottom Status/Level Description --- */
+.course-describe {
+    display: flex;
+    position: absolute; 
+    bottom: 10px; 
+    left: 10px;
+    right: 10px;
+    justify-content: space-between;
+    
+    /* HIGH Z-INDEX: Sits above the image */
+    z-index: 5; 
+    color: #fff;
+}
+.course-describe .course-level {
+    font-size: 12px;
+    /* Removed relative positioning for simplicity */
+}
+.course-describe .status {
+    font-size: 12px;
+    /* Removed relative positioning for simplicity */
+}
+
+.start-course {
+    position: absolute;
+    bottom: 40px;
+    left: 50%; 
+    transform: translateX(-50%);
+    z-index: 10; 
+    cursor: pointer;
+    padding: 5px  50px;
+    background-color: #a96e15;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid rgb(144, 123, 7);
+
+}
+.start-course:hover {
+    background-color: #b47920;
+}
+

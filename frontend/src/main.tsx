@@ -7,9 +7,16 @@ import { AuthProvider } from './Auth/AuthContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
 
-  <BrowserRouter>
+  // <BrowserRouter>
+  <BrowserRouter
+  future={{
+    v7_startTransition: true,
+    v7_relativeSplatPath: true,
+  }}>
+
   <AuthProvider>
     <App />
   </AuthProvider>
-  </BrowserRouter>,
+  </BrowserRouter>
+  // </BrowserRouter>,
 )

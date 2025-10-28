@@ -1,12 +1,22 @@
 import { Link } from 'react-router-dom'
 import './Header.css'
-import { useEffect, useState } from 'react'
 import { useAuth } from '../Auth/AuthContext'
+import { jwtDecode } from 'jwt-decode' 
+import { useEffect, useState } from 'react';
 
 export default function Header() {
-   const { isLoggedIn, logout } = useAuth(); 
+   const { isLoggedIn, logout, decodedToken } = useAuth(); 
+  
 
-  return (
+    useEffect(() => {
+      const token = localStorage.getItem('access_token')
+      if (!token) {
+        return
+      }
+      console.log('tokens ---', jwtDecode(token))
+    }, [])  
+
+  return (  
     <header className='header'>
       <Link to='/' style={{color: 'white', textDecoration: 'none'}}>
       <div className='header-name'>
@@ -17,10 +27,17 @@ export default function Header() {
 
       <nav className='header-nav'>
         <ul className='header-nav-list'>
-          <li><a href="">Курси</a></li>
+          {decodedToken?.roleId === 2 || decodedToken?.roleId === 3 
+          ?
+         <Link to='/trial-session'  style={{color: "white", textDecoration: 'none'}}><li>Нові студенти</li> </Link>  
+          :
+           <></>}
           {/* <li><a href="">About</a></li> */}
           {/* <li><a href="">Contact</a></li> */}
 
+          <Link to='/courses' style={{color: "white", textDecoration: 'none'}}>
+            <li>Курси</li>
+          </Link>
           {isLoggedIn ? (
             <li onClick={logout}> Logout</li>
           ) : (

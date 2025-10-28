@@ -32,9 +32,9 @@
     border: 1px solid #444466;
     border-radius: 6px;
     outline: none;
-    background: #2a2a40; /* input more visible */
+    background: #2a2a40;  
     color: #ffffff;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease;  
   }
   
   .form-group input:focus {
@@ -60,7 +60,7 @@
     padding: 0 4px;
   }
   
-  button {
+  .signing-btn {
     width: 100%;
     padding: 12px;
     background: #6c63ff;
@@ -73,7 +73,7 @@
     transition: background 0.3s ease;
   }
   
-  button:hover {
+  .signing-btn:hover {
     background: #5750c6;
   }
   
