@@ -144,6 +144,9 @@
   text-align: center;
   margin-top: 50px;
   font-weight: 700;
+  color: #6c63ff;
+  font-weight: 500;
+  
 }
 
 .trial-reg-form {
@@ -197,7 +200,16 @@
 
 }
 .enroll-to-the-session {
-  margin: auto;
+  margin: 50px auto;
   display: flex;
-  
+  z-index: 100; 
+  padding: 12px 60px;
+  background: #6c63ff;
+  border: none;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }

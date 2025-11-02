@@ -1,12 +1,13 @@
 import { Injectable, ConflictException, BadRequestException, HttpException, HttpStatus, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
-import { Repository } from 'typeorm';
+import { QueryFailedError, Repository } from 'typeorm';
 import { SignUpDto } from './dto/signUp.dto.entity';
 import * as bcrypt from 'bcrypt'
 import { SignInDto } from './dto/signIn.dto.entity';
 import { JwtService } from '@nestjs/jwt';
 import { Role } from 'src/entities/role.entity';
+import { Form } from 'src/entities/form.entity';
 
 @Injectable()
 export class AuthService {
@@ -16,8 +17,8 @@ export class AuthService {
 
         @InjectRepository(Role)
         private readonly roleRepository: Repository<Role>,
+
         private jwt: JwtService
-        
     ) {}
 
     async signUp(signUpDto: SignUpDto): Promise<{ message: string; user: Partial<User> }> {
@@ -56,12 +57,15 @@ export class AuthService {
             };
 
         } catch (error) {
-            console.log(error);
-            throw new BadRequestException('Failed to create user');
+            if (error instanceof QueryFailedError) {
+                throw Error('Unique constraint')
+            }
+            throw error
         }
+
     }
 
-    async signIn(dto: SignInDto): Promise<{message: string, access_token: string}> {
+    async signIn(dto: SignInDto): Promise<{message: string, access_token: string, refresh_token: string}> {
         try {
              const existingUser = await this.userRepository.findOne({
                 where: {email: dto.email},
@@ -74,14 +78,18 @@ export class AuthService {
              
              const payload = {email: existingUser.email, roleId: existingUser.role.roleId}
              const accessToken = await this.jwt.sign(payload)
-
+             const refreshToken = await this.jwt.sign(payload, {
+                expiresIn: '3h'
+             })
 
              return {
                message: 'You signed in successfully',
-               access_token: accessToken
+               access_token: accessToken,
+               refresh_token: refreshToken
              }
 
         } catch(error) {
+            console.log(error);
             throw new HttpException({
                 status: HttpStatus.INTERNAL_SERVER_ERROR,
                 error: 'error in sign in',

@@ -1,0 +1,58 @@
+.trial-session-container {
+  margin: 100px auto;
+  background-color: #1b1b32;
+  width: 700px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.sessions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Space between user cards */
+}
+
+.data-session-user {
+  background-color: #2a2a40;
+  padding: 14px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  
+  gap: 8px;
+  transition: transform 0.2s ease;
+}
+
+.data-session-user:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.fa-check {
+    position: relative;
+    top: 10px;
+    cursor: pointer;
+    font-size: 25px;
+    color: green;
+}
+.sessions-names {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.email {
+  color: #a0d2ff;
+  font-size: 0.9em;
+}
+
+.created-at {
+  font-size: 0.8em;
+  color: #888;
+  text-align: right;
+}
+

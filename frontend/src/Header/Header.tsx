@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import './Header.css'
 import { useAuth } from '../Auth/AuthContext'
 import { jwtDecode } from 'jwt-decode' 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 export default function Header() {
    const { isLoggedIn, logout, decodedToken } = useAuth(); 
@@ -29,7 +29,7 @@ export default function Header() {
         <ul className='header-nav-list'>
           {decodedToken?.roleId === 2 || decodedToken?.roleId === 3 
           ?
-         <Link to='/trial-session'  style={{color: "white", textDecoration: 'none'}}><li>Нові студенти</li> </Link>  
+         <Link to='/trial-session'  style={{color: "white", textDecoration: 'none'}}><li style={{fontSize: '18px'}} ><i className="fa-solid fa-user"></i></li> </Link>  
           :
            <></>}
           {/* <li><a href="">About</a></li> */}

@@ -5,6 +5,7 @@ import Header from './Header/Header'
 import SignIn from './Auth/SignIn'
 import Main from './Main/Main'
 import Courses from './Courses/Courses'
+import TrialSession from './TrialSessions/TrialSession'
 
 function App() {
 
@@ -14,11 +15,10 @@ function App() {
   <Routes>
 
       <Route path="/" element={<Main/>} />
-
       <Route path="/signin" element={<SignIn/>} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/courses" element={<Courses/>} />
-    
+      <Route path='/trial-session' element={<TrialSession/>}></Route>
 
    </Routes>
    </>
