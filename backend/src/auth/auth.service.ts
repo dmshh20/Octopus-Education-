@@ -76,7 +76,7 @@ export class AuthService {
                 throw new BadRequestException('User does not exist')
              }
              
-             const payload = {email: existingUser.email, roleId: existingUser.role.roleId}
+             const payload = {id: existingUser.id, email: existingUser.email, roleId: existingUser.role.roleId}
              const accessToken = await this.jwt.sign(payload)
              const refreshToken = await this.jwt.sign(payload, {
                 expiresIn: '3h'
