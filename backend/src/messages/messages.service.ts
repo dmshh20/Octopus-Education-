@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Message } from 'src/schemas/message.schema';
 import {Model} from 'mongoose'
+import { sendMessageDto } from 'src/schemas/dto/message.schema.dto';
 
 @Injectable()
 export class MessagesService {
@@ -9,10 +10,26 @@ export class MessagesService {
         @InjectModel(Message.name) private messageModel: Model<Message>
     ) {}
 
-     async getMessages() {
+     async getMessages(page: number = 1, limit: number = 50) {
         try {
 
-        return await this.messageModel.find()
+        const skip = (page - 1) * limit     
+        const messages = await this.messageModel
+            .find()
+            .sort({ createdAt: - 1})
+            .skip(skip)
+            .limit(limit)
+
+        const countMessage = await this.messageModel.countDocuments()
+
+        return {
+            messages,
+            pagination: {
+                page,
+                countMessages: countMessage,
+                limit,
+            }
+        }
 
         } catch(error) {
             throw new Error('Error in getting messages', error)
@@ -20,14 +37,14 @@ export class MessagesService {
     }
 
 
-    async sendMessage(dto: any) {
+    async sendMessage(dto: sendMessageDto) {
         try {
 
             const sendMessage = new this.messageModel(dto)
             return sendMessage.save()
 
         } catch(error) {
-            throw new Error('Send Error Message', error)
+            throw new InternalServerErrorException('Failed to send message', error)
         }
     }
 

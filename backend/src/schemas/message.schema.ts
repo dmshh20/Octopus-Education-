@@ -1,12 +1,12 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { IsNumber } from "class-validator";
 import { HydratedDocument } from "mongoose";
 
 export type MessageDocument = HydratedDocument<Message>
 
 @Schema({timestamps: true})
 export class Message {
-
-
+        
         @Prop({type: Number, required: true})
         senderId: Number
 
