@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config'
 import { FormModule } from './form/form.module';
 import { FormService } from './form/form.service';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ENV } from './lib/env';
 import { MessagesModule } from './messages/messages.module';
 
 
@@ -16,7 +17,7 @@ import { MessagesModule } from './messages/messages.module';
     ConfigModule.forRoot({
       isGlobal: true
     }),
-    MongooseModule.forRoot(process.env.MONGO_URL as string),
+    MongooseModule.forRoot(ENV.MONGO_URL as string),
     DatabaseModule,
     AuthModule,
     FormModule,
