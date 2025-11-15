@@ -9,6 +9,7 @@ import { FormModule } from './form/form.module';
 import { FormService } from './form/form.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ENV } from './lib/env';
+import { MessagesModule } from './messages/messages.module';
 
 
 @Module({
@@ -19,7 +20,8 @@ import { ENV } from './lib/env';
     MongooseModule.forRoot(ENV.MONGO_URL as string),
     DatabaseModule,
     AuthModule,
-    FormModule
+    FormModule,
+    MessagesModule
   ],
   controllers: [AppController],
   providers: [AppService],
