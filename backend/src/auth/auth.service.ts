@@ -48,7 +48,12 @@ export class AuthService {
              });
 
             const savedUser = await this.userRepository.save(user);
-             reSendEmail(user.firstName)
+
+           try {
+            reSendEmail(user.firstName) 
+           } catch(errorEmail) {
+            console.error(errorEmail);
+           }
 
             // Return user data without password
             const { password, ...userWithoutPassword } = savedUser;

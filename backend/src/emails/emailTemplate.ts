@@ -1,4 +1,4 @@
-export function createWelcomeEmailTemplate(name, clientURL) {
+export function createWelcomeEmailTemplate(name: string, clientURL: string): string {
   return `
   <!DOCTYPE html>
   <html lang="en">
