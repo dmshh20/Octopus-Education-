@@ -16,5 +16,10 @@ export const ENV = {
     MONGO_URL: process.env.MONGO_URL,
 
     // port
-    PORT: process.env.PORT
+    PORT: process.env.PORT,
+
+    // resend
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
+    BASE_URL: process.env.BASE_URL,
+    RESEND_RECEIVER_EMAIL: process.env.RESEND_RECEIVER_EMAIL
 }
