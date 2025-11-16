@@ -43,8 +43,8 @@ import { APP_GUARD } from '@nestjs/core';
         // Create a fixed window rate limit. Other algorithms are supported.
         fixedWindow({
           mode: "LIVE",
-          window: "60s", // 10 second fixed window
-          max: 10, // Allow a maximum of 2 requests
+          window: "60s", // * second fixed window
+          max: 10, // Allow a maximum of * requests
         }),
       ],
     }),
