@@ -25,6 +25,7 @@
     "migration:revert": "npm run typeorm -- migration:revert -d src/config/data-source.ts"
   },
   "dependencies": {
+    "@arcjet/nest": "^1.0.0-beta.15",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.1",
