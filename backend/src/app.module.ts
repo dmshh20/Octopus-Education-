@@ -19,7 +19,7 @@ import { ENV } from './lib/env';
     MongooseModule.forRoot(ENV.MONGO_URL as string),
     DatabaseModule,
     AuthModule,
-    FormModule
+    FormModule  
   ],
   controllers: [AppController],
   providers: [AppService],

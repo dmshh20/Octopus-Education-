@@ -2,7 +2,7 @@ import 'dotenv/config'
 
 export const ENV = {
     // typeorm connection
-    TYPEORM_TYPE: process.env.TYPEORM_TYPE,
+    TYPEORM_TYPE: process.env.TYPEORM_TYPE ,
     TYPEORM_HOST: process.env.TYPEORM_HOST,
     TYPEORM_PORT: process.env.TYPEORM_PORT,
     TYPEORM_USERNAME: process.env.TYPEORM_USERNAME,
@@ -16,5 +16,24 @@ export const ENV = {
     MONGO_URL: process.env.MONGO_URL,
 
     // port
-    PORT: process.env.PORT
+    PORT: process.env.PORT,
+
+    // resend
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
+    BASE_URL: process.env.BASE_URL,
+    RESEND_RECEIVER_EMAIL: process.env.RESEND_RECEIVER_EMAIL
+}
+
+const requiredEnvs = [
+    'SECRET_KEY',
+    'RESEND_API_KEY',
+    'RESEND_RECEIVER_EMAIL',
+    'MONGO_URL',
+    'BASE_URL'
+] as const
+
+for (let envVar of requiredEnvs) {
+    if (!process.env[envVar]) {
+        throw new Error(`Missing variable. ${envVar} is required`)
+    }
 }
