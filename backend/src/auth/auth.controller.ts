@@ -20,4 +20,11 @@ export class AuthController {
     return this.authService.signIn(signInDto)
   }
 
+  @Get('me')
+  async getUserData() {
+    return this.authService.getUserData()
+  }
+
+
 }
+

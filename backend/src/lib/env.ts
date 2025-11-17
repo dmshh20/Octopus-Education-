@@ -14,7 +14,10 @@ export const ENV = {
     BASE_URL: process.env.BASE_URL,
     RESEND_RECEIVER_EMAIL: process.env.RESEND_RECEIVER_EMAIL,
     ARCJET_KEY: process.env.ARCJET_KEY,
-    ARCJET_ENV: process.env.ARCJET_ENV
+    ARCJET_ENV: process.env.ARCJET_ENV,
+    CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
+    CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
+    CLOUDINARY_NAME: process.env.CLOUDINARY_NAME
 }
 
 const requiredEnvs = [
@@ -24,6 +27,8 @@ const requiredEnvs = [
     'MONGO_URL',
     'BASE_URL',
     'ARCJET_KEY',
+    'CLOUDINARY_API_SECRET',
+    'CLOUDINARY_API_KEY'
 ] as const
 
 for (let envVar of requiredEnvs) {

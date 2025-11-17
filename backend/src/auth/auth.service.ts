@@ -106,4 +106,14 @@ export class AuthService {
         }
     }
 
+    async getUserData() {
+        try {
+
+            // await t
+
+        } catch(error) {
+            throw new Error('Error Getting User Data', error)
+        }
+    }
+
 }

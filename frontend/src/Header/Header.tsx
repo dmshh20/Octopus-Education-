@@ -3,17 +3,37 @@ import './Header.css'
 import { useAuth } from '../Auth/AuthContext'
 import { jwtDecode } from 'jwt-decode' 
 import { useEffect } from 'react';
+import axios from 'axios';
 
 export default function Header() {
    const { isLoggedIn, logout, decodedToken } = useAuth(); 
   
+  
+   
 
-    useEffect(() => {
+    useEffect( () =>  {
       const token = localStorage.getItem('access_token')
       if (!token) {
         return
       }
-      console.log('tokens ---', jwtDecode(token))
+
+      const getUserData = async () => {
+        try {
+          const request = await axios.get('http://localhost:3000/auth/me', {
+            headers: {
+              "Content-Type": "appication/json",
+              Authorization: `Bearer ${localStorage.getItem('access_token')}`
+            }
+          })
+          return request
+
+          
+        } catch(error: any) {
+          throw new Error('Error Getting User Data', error)
+        }
+      }
+
+        getUserData()
     }, [])  
 
   return (  
@@ -43,6 +63,9 @@ export default function Header() {
           ) : (
             <li><Link to="/signin">Sign In</Link></li>
           )}
+
+          
+
         </ul>
       </nav>
     </header>

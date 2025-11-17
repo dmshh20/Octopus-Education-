@@ -1,5 +1,6 @@
 import { Column, Entity, Index, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Role } from "./role.entity";
+import { IsOptional, IsUrl } from "class-validator";
 
 @Entity('users')
 export class User {
@@ -21,5 +22,10 @@ export class User {
 
     @ManyToOne(() => Role, (role) => role.role)
     role: Role
+
+    @IsUrl()
+    @IsOptional()
+    @Column({nullable: true})
+    profileUrl: string
 
 }
