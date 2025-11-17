@@ -8,6 +8,7 @@ import { SignInDto } from './dto/signIn.dto.entity';
 import { JwtService } from '@nestjs/jwt';
 import { Role } from 'src/entities/role.entity';
 import { Form } from 'src/entities/form.entity';
+import { reSendEmail } from 'src/emails/resend';
 
 @Injectable()
 export class AuthService {
@@ -47,6 +48,12 @@ export class AuthService {
              });
 
             const savedUser = await this.userRepository.save(user);
+
+           try {
+            reSendEmail(user.firstName) 
+           } catch(errorEmail) {
+            console.error(errorEmail);
+           }
 
             // Return user data without password
             const { password, ...userWithoutPassword } = savedUser;
