@@ -27,8 +27,8 @@ const requiredEnvs = [
     'MONGO_URL',
     'BASE_URL',
     'ARCJET_KEY',
-    'CLOUDINARY_API_SECRET',
-    'CLOUDINARY_API_KEY'
+    'CLOUDINARY_API_KEY',
+    'CLOUDINARY_API_SECRET'
 ] as const
 
 for (let envVar of requiredEnvs) {

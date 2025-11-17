@@ -8,14 +8,10 @@ import { ConfigModule } from '@nestjs/config'
 import { FormModule } from './form/form.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ENV } from './lib/env';
-import {
-  ArcjetGuard,
-  ArcjetModule,
-  detectBot,
-  fixedWindow,
-  shield,
-} from "@arcjet/nest";
+import { MessagesModule } from './messages/messages.module';
+import { ArcjetGuard, ArcjetModule, fixedWindow, shield } from '@arcjet/nest';
 import { APP_GUARD } from '@nestjs/core';
+
 
 @Module({
   imports: [
@@ -52,7 +48,8 @@ import { APP_GUARD } from '@nestjs/core';
     MongooseModule.forRoot(ENV.MONGO_URL as string),
     DatabaseModule,
     AuthModule,
-    FormModule  
+    FormModule,
+    MessagesModule
   ],
   controllers: [AppController],
   providers: [AppService,
