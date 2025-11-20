@@ -96,7 +96,6 @@ export class AuthService {
              }
 
         } catch(error) {
-            console.log(error);
             throw new HttpException({
                 status: HttpStatus.INTERNAL_SERVER_ERROR,
                 error: 'error in sign in',
@@ -106,10 +105,10 @@ export class AuthService {
         }
     }
 
-    async getUserData() {
+    async getUserData(user: any) {
         try {
-
-            // await t
+            return await this.userRepository.findOneBy({id: user.id})
+            
 
         } catch(error) {
             throw new Error('Error Getting User Data', error)

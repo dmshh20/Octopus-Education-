@@ -23,8 +23,7 @@ const SignIn = () => {
 
     try {
       const response = await axios.post(
-      process.env.REACT_APP_BACKEND_SIGNIN as string
-      ,
+    import.meta.env.VITE_BACKEND_SIGNIN as string,
         {
           email: formData.email,
           password: formData.password,
@@ -34,7 +33,6 @@ const SignIn = () => {
         }
       );
 
-      // response.data will contain { message, access_token }
       const { access_token } = response.data;
 
       login(access_token)
@@ -43,7 +41,6 @@ const SignIn = () => {
       navigate('/');
 
     } catch (error: any) {
-      console.error('Error signing in:', error);
       if (error.response?.data?.message) {
         setErrorMessage(error.response.data.message);
       } else {

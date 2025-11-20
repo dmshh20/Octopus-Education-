@@ -4,13 +4,11 @@ import { useAuth } from '../Auth/AuthContext'
 import { jwtDecode } from 'jwt-decode' 
 import { useEffect } from 'react';
 import axios from 'axios';
+import { useAuthStore } from '../store/useAuthStore';
 
 export default function Header() {
    const { isLoggedIn, logout, decodedToken } = useAuth(); 
   
-  
-   
-
     useEffect( () =>  {
       const token = localStorage.getItem('access_token')
       if (!token) {
@@ -19,22 +17,24 @@ export default function Header() {
 
       const getUserData = async () => {
         try {
-          const request = await axios.get('http://localhost:3000/auth/me', {
+          const request = await axios.get(process.env.USER_ME as string
+            ,
+             {
             headers: {
-              "Content-Type": "appication/json",
+              "Content-Type": "application/json",
               Authorization: `Bearer ${localStorage.getItem('access_token')}`
             }
-          })
+          }
+        )
           return request
 
-          
         } catch(error: any) {
           throw new Error('Error Getting User Data', error)
         }
       }
 
         getUserData()
-    }, [])  
+    }, [isLoggedIn])  
 
   return (  
     <header className='header'>
@@ -56,7 +56,7 @@ export default function Header() {
           {/* <li><a href="">Contact</a></li> */}
 
           <Link to='/courses' style={{color: "white", textDecoration: 'none'}}>
-            <li>Курси</li>
+            <li>Курси </li>
           </Link>
           {isLoggedIn ? (
             <li onClick={logout}> Logout</li>

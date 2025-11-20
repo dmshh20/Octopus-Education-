@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { SignUpDto } from './dto/signUp.dto.entity';
 import { SignInDto } from './dto/signIn.dto.entity';
 import { JwtAuthGuard } from './guard/jwt-auth.guard';
-import { Roles } from './decorator/roles.decorator';
+import { GetUser } from './decorator/getUser.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -20,9 +20,13 @@ export class AuthController {
     return this.authService.signIn(signInDto)
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('me')
-  async getUserData() {
-    return this.authService.getUserData()
+  async getUserData(@GetUser() user: any) {
+    console.log('BACK USER', user);
+    // console.log('USEE BACK');
+    
+    return this.authService.getUserData(user)
   }
 
 
