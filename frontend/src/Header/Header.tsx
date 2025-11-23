@@ -14,10 +14,6 @@ export default function Header() {
       if (!token) {
         return
       }
-
-      
-
-
       const getUserData = async () => {
         const response = await axios.get(import.meta.env.VITE_USER_ME, 
           { 
@@ -30,9 +26,6 @@ export default function Header() {
         if (!response.data) {
           throw new Error('error in reponse')
         }
-
-        console.log(response.data);
-
       }
         
         getUserData()
@@ -56,8 +49,8 @@ export default function Header() {
           formData.append('file', file)
 
           const token = localStorage.getItem('access_token')
-          const response = await axios.post(import.meta.env.VITE_CLOUDINARY
-            , formData, {
+          const response = await axios.post(import.meta.env.VITE_CLOUDINARY,
+             formData, {
             headers: {
               Authorization: `Bearer ${token}`
             }
