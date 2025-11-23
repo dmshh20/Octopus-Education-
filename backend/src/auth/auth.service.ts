@@ -9,6 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Role } from 'src/entities/role.entity';
 import { Form } from 'src/entities/form.entity';
 import { reSendEmail } from 'src/emails/resend';
+import { getUserData } from './dto/getUserData.dto';
 
 @Injectable()
 export class AuthService {
@@ -105,14 +106,19 @@ export class AuthService {
         }
     }
 
-    async getUserData(user: any) {
+    async getUserData(user: getUserData) {
         try {
-            return await this.userRepository.findOneBy({id: user.id})
-            
+            const userData = await this.userRepository.findOneBy({id: user.id})
+                
+            if (!userData) {
+                throw new Error('User is not found')
+            }
 
+            const { password, ...newData} = userData
+
+            return newData
         } catch(error) {
             throw new Error('Error Getting User Data', error)
         }
     }
-
 }

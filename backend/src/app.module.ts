@@ -3,7 +3,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { DatabaseModule } from './database/database.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config'
 import { FormModule } from './form/form.module';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -11,7 +10,7 @@ import { ENV } from './lib/env';
 import { MessagesModule } from './messages/messages.module';
 import { ArcjetGuard, ArcjetModule, fixedWindow, shield } from '@arcjet/nest';
 import { APP_GUARD } from '@nestjs/core';
-
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -22,21 +21,7 @@ import { APP_GUARD } from '@nestjs/core';
       isGlobal: true,
       key: process.env.ARCJET_KEY!,
       rules: [
-        // Shield protects your app from common attacks e.g. SQL injection
         shield({ mode: "LIVE" }),
-        // Create a bot detection rule
-        // detectBot({
-        //   mode: "LIVE", // Blocks requests. Use "DRY_RUN" to log only
-        //   // Block all bots except the following
-        //   allow: [
-        //     "CATEGORY:SEARCH_ENGINE", // Google, Bing, etc
-        //     // Uncomment to allow these other common bot categories
-        //     // See the full list at https://arcjet.com/bot-list
-        //     //"CATEGORY:MONITOR", // Uptime monitoring services
-        //     //"CATEGORY:PREVIEW", // Link previews e.g. Slack, Discord
-        //   ],
-        // }),
-        // Create a fixed window rate limit. Other algorithms are supported.
         fixedWindow({
           mode: "LIVE",
           window: "60s", // * second fixed window
@@ -44,12 +29,13 @@ import { APP_GUARD } from '@nestjs/core';
         }),
       ],
     }),
-
+    
     MongooseModule.forRoot(ENV.MONGO_URL as string),
     DatabaseModule,
     AuthModule,
     FormModule,
-    MessagesModule
+    MessagesModule,
+    CloudinaryModule
   ],
   controllers: [AppController],
   providers: [AppService,

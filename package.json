@@ -1,4 +1,7 @@
 {
+  "dependencies": {
+    "@nestjs/mapped-types": "*"
+  },
   "name": "kursiva",
   "version": "1.0.0",
   "description": "my kursova",

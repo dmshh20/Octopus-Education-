@@ -20,7 +20,9 @@ const TrialSession = () => {
 
   const fetchSessions = async () => {
     try {
-      const response = await axios.get(process.env.FORM as string, {
+      const response = await axios.get(
+        import.meta.env.VITE_FORM
+        , {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem('access_token')}`,
@@ -70,4 +72,4 @@ const TrialSession = () => {
   );
 };
 
-export default TrialSession;
+export default TrialSession;  
