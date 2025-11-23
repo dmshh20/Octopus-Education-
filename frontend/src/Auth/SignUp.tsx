@@ -45,8 +45,12 @@ const SignUp = () => {
         } else {
           throw new Error("Invalid Credentials")
         }
-      } catch(error: unknown) {
-        throw new Error('Error in SignUp', {cause: error})
+      } catch(error: any) {
+         if (error.response?.data?.message) {
+          setError(error.response.data.message)
+        } else {
+          setError('Error during signup. Please try again.')
+        }
     }
 
 
