@@ -19,7 +19,7 @@ export default function Main() {
     email: ""
   })
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsForm({...isForm, [e.target.name]: e.target.value})
   } 
 
@@ -29,7 +29,7 @@ export default function Main() {
   };
 
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
     
     try {
@@ -40,16 +40,15 @@ export default function Main() {
       setToken(true)
       setError(false)
     
-      const response = await axios.post(process.env.FORM as string, isForm, {
+      const response = await axios.post(import.meta.env.VITE_FORM, isForm, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`
         }
       } )   
       setIsOpen(false)
       return response
     } catch(err: any) {
-      console.log(err);
       throw err
     }
   }

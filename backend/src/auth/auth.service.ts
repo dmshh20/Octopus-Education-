@@ -7,7 +7,6 @@ import * as bcrypt from 'bcrypt'
 import { SignInDto } from './dto/signIn.dto.entity';
 import { JwtService } from '@nestjs/jwt';
 import { Role } from 'src/entities/role.entity';
-import { Form } from 'src/entities/form.entity';
 import { reSendEmail } from 'src/emails/resend';
 import { getUserData } from './dto/getUserData.dto';
 

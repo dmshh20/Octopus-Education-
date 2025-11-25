@@ -19,11 +19,10 @@ const SignIn = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setErrorMessage('');
 
     try {
       const response = await axios.post(
-    import.meta.env.VITE_BACKEND_SIGNIN as string,
+    import.meta.env.VITE_BACKEND_SIGNIN,
         {
           email: formData.email,
           password: formData.password,

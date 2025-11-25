@@ -5,7 +5,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Role } from 'src/entities/role.entity';
 import { JwtModule } from '@nestjs/jwt'
-import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './strategy/jwt-strategy';
 import { Form } from 'src/entities/form.entity';
 import 'dotenv/config'

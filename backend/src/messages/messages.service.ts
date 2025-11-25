@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Message } from 'src/schemas/message.schema';
 import {Model} from 'mongoose'
 import { sendMessageDto } from 'src/schemas/dto/message.schema.dto';
+import { GetUserDecoratorDto } from 'src/auth/decorator/dto/GetUser.decorator.dto';
 
 @Injectable()
 export class MessagesService {
@@ -49,7 +50,7 @@ export class MessagesService {
     }
 
    
-    async getMessagesById(id: number, user: any) {
+    async getMessagesById(id: number, user: GetUserDecoratorDto) {
         try {
            const getMessages = this.messageModel.find({
             $or: [

@@ -1,4 +1,3 @@
-import React from 'react'
 import './Courses.css'
 import a1 from '../images/a1.png'
 import { Link } from 'react-router-dom'
