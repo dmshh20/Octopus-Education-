@@ -21,15 +21,12 @@ const SignUp = () => {
    const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
+          const {confirmPassword, ...userData} = formData
+
           const request = await axios.post(
-          process.env.REACT_APP_BACKEND_SIGNUP as string
+          import.meta.env.VITE_BACKEND_SIGNUP as string, 
+              userData
           , {
-            firstName: formData.firstName,
-            secondName: formData.secondName,
-            email: formData.email,    
-            password: formData.password,
-            confirmPassword: formData.confirmPassword
-          }, {
             headers: {'Content-Type': 'application/json'},
 
           })
@@ -48,8 +45,12 @@ const SignUp = () => {
         } else {
           throw new Error("Invalid Credentials")
         }
-    } catch(error) {
-      throw error
+      } catch(error: any) {
+         if (error.response?.data?.message) {
+          setError(error.response.data.message)
+        } else {
+          setError('Error during signup. Please try again.')
+        }
     }
 
 

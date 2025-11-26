@@ -1,5 +1,4 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { IsNumber } from "class-validator";
 import { HydratedDocument } from "mongoose";
 
 export type MessageDocument = HydratedDocument<Message>
