@@ -23,13 +23,17 @@ export default function Header() {
             }
         })
 
+       if (response.data.profileUrl) {
+        setImage(response.data.profileUrl)
+      }
+      
+
         if (!response.data) {
           throw new Error('error in reponse')
         }
       }
         
         getUserData()
-        
     }, [isLoggedIn])  
 
   
