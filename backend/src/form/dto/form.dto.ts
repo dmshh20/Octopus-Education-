@@ -1,12 +1,15 @@
+import { IsEmail, IsString, Length } from "class-validator";
 import { Column, Index } from "typeorm";
 
 export class FormDto {
-    @Column({type: "varchar", length: 100,nullable: false})
+    @IsString()
+    @Length(1,100)
     firstName: string
 
-    @Column({type: "varchar", length: 100,nullable: false})
+    @IsString()
+    @Length(1,100)
     secondName: string
 
-    @Index({unique: true})
+    @IsEmail()
     email: string
 }
