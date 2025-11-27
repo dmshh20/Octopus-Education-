@@ -35,7 +35,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     AuthModule,
     FormModule,
     MessagesModule,
-    CloudinaryModule,
+    CloudinaryModule
   ],
   controllers: [AppController],
   providers: [AppService,

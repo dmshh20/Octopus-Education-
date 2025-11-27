@@ -1,5 +1,4 @@
 import { IsEmail, IsString, Length } from "class-validator";
-import { Column, Index } from "typeorm";
 
 export class FormDto {
     @IsString()
