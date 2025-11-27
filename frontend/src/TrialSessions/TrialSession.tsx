@@ -29,7 +29,8 @@ const TrialSession = () => {
         },
       });
       setSessions(response.data);
-    } catch (err) {
+    } catch (error) {
+      throw error
     } finally {
       setLoading(false);
     }

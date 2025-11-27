@@ -8,9 +8,16 @@ import Modal from '../Modal/Modal'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { jwtDecode } from 'jwt-decode'
+
+interface JwtPayload {
+  email: string;
+  roleId: number;
+  iat: number;
+  exp: number;
+}
 
 export default function Main() {
-  const [token, setToken] = useState(!!localStorage.getItem('access_token'))
   const [error, setError] = useState<string | boolean>()
   const [isOpen, setIsOpen] = useState(false)
   const [isForm, setIsForm] = useState({
@@ -33,23 +40,35 @@ export default function Main() {
     e.preventDefault()
     
     try {
+      const token = localStorage.getItem('access_token')
+      
       if (!token) {
           setError(true)
           return
       }
-      setToken(true)
       setError(false)
-    
+      const decodedToken: JwtPayload = jwtDecode(token)
+      
+      if (isForm.email !== decodedToken.email) {
+        setError('Заявку можна відсилати тільки на свій емейл')
+        return
+      }
+
       const response = await axios.post(import.meta.env.VITE_FORM, isForm, {
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('access_token')}`
+          Authorization: `Bearer ${token}`
         }
       } )   
       setIsOpen(false)
+      setIsForm({firstName: "", secondName: "", email: ""})
+
+
       return response
-    } catch(err: any) {
-      throw err
+    } catch(error: any) {
+      if (error.response.status === 409) {
+        setError('Ви вже подавалися на пробний урок')
+      }
     }
   }
 
@@ -124,8 +143,10 @@ export default function Main() {
                           <label htmlFor="">email</label>
 
                         </div>
+                          {error && <b style={{color: '#DC0000', textAlign: 'center', marginBottom: '20px'}}>{error}<br /></b>}
                         <button type='submit' className='enroll-to-the-session'>Записатися</button>
-                          {error && <b style={{color: 'yellow'}}>Before send the form please sign up <br /><Link to='/signup'>Create an account</Link></b>}
+
+                          <Link to='/signup'>Create an account</Link>
                             
                       </form>
               
