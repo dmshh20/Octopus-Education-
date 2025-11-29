@@ -20,6 +20,9 @@ function App() {
       <Route path="/courses" element={<Courses/>} />
       <Route path='/trial-session' element={<TrialSession/>}></Route>
 
+      <Route path="/lessons/:setId/theory" />
+      <Route path="/lessons/:setId/practice" />
+
    </Routes>
    </>
   )

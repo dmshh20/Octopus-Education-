@@ -115,3 +115,23 @@
     background-color: #b47920;
 }
 
+.set-modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.set-modal-title {
+    margin-bottom: 20px;
+}
+
+.set-modal-buttons {
+    margin-bottom: 100px;
+}
+.set-modal-buttons button {
+    padding: 7px 30px;
+    cursor: pointer;
+    background-color: #eaf127;
+    border: none;
+    border-radius: 8px;
+}
