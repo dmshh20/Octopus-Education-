@@ -1,5 +1,4 @@
 import './Courses.css'
-import a1 from '../images/a1.png'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { EnglishSets, type EnglishSet } from '../data/sets'
@@ -30,15 +29,15 @@ const Courses = () => {
             {EnglishSets.map((set) => (
 
             <div key={set.id} className='course'>
-                <p className='about-course'>{set.level} - {set.title}</p>
+                <p className='about-course'>{set.title}</p>
                 
-                <img src={a1} alt="" className='image-card' />
+                <img src={set.image} alt="" className='image-card' />
                   <button onClick={() => setSelectedSet(set)} className='start-course'>Розпочати</button>
             
 
                 <div className='course-describe'>
                     <p className='course-level'>{set.level}</p>
-                    <p className='status'>Вступ/Основи</p>
+                    <p className='status'>{set.status}</p>
                 </div>
             </div>
             ))}

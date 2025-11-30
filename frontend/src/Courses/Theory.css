@@ -1,0 +1,171 @@
+/* src/lessons/theory/Theory.css */
+.theory-article {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  line-height: 1.8;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #e0e0ff;                    /* світлий текст для темного фону */
+}
+
+.theory-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.theory-header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #8b7eff, #c5a8ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: #b0b0ff;
+  opacity: 0.9;
+}
+
+/* Секції */
+.theory-section {
+  margin: 4rem 0;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 16px;
+  border: 1px solid rgba(140, 130, 255, 0.15);
+  backdrop-filter: blur(8px);
+}
+
+.theory-section h2 {
+  font-size: 2.2rem;
+  color: #c5a8ff;
+  border-bottom: 2px solid #8b7eff;
+  padding-bottom: 0.8rem;
+  margin-bottom: 1.8rem;
+}
+
+/* Таблиці */
+.grammar-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  background: rgba(40, 40, 70, 0.6);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.grammar-table th {
+  background: #6c63ff;
+  color: white;
+  padding: 1.2rem;
+  font-weight: 600;
+}
+
+.grammar-table td {
+  padding: 1.2rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(140, 130, 255, 0.2);
+}
+
+.grammar-table tbody tr:hover {
+  background: rgba(108, 99, 255, 0.15);
+}
+
+/* Приклади */
+.examples {
+  background: rgba(30, 30, 60, 0.6);
+  padding: 1.8rem;
+  border-radius: 14px;
+  border-left: 4px solid #8b7eff;
+  font-size: 1.15rem;
+}
+
+.examples li {
+  margin: 0.8rem 0;
+}
+
+/* Підсвітка */
+.highlight-box {
+  background: rgba(255, 245, 157, 0.1);
+  border-left: 5px solid #ffb300;
+  padding: 1.2rem 1.5rem;
+  border-radius: 0 10px 10px 0;
+  margin: 1.5rem 0;
+  backdrop-filter: blur(4px);
+}
+
+.note {
+  background: rgba(70, 130, 255, 0.12);
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  padding: 1.2rem;
+  border-radius: 12px;
+  margin-top: 1.5rem;
+}
+
+/* Картки використання */
+.usage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.usage-card {
+  background: rgba(50, 50, 90, 0.6);
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid rgba(140, 130, 255, 0.2);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.usage-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(108, 99, 255, 0.25);
+}
+
+.usage-card h3 {
+  color: #a29bfe;
+  margin-bottom: 0.8rem;
+  font-size: 1.3rem;
+}
+
+/* Маркери часу */
+.markers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+}
+
+.markers span {
+  background: rgba(108, 99, 255, 0.25);
+  color: #e0d8ff;
+  padding: 0.6rem 1.3rem;
+  border-radius: 50px;
+  font-weight: 500;
+  font-size: 0.98rem;
+  border: 1px solid rgba(140, 130, 255, 0.3);
+}
+
+/* Футер */
+.theory-footer {
+  text-align: center;
+  margin-top: 5rem;
+  padding: 3rem;
+  font-size: 1.4rem;
+  color: #b0b0ff;
+  opacity: 0.9;
+}
+
+/* Мобільна адаптація */
+@media (max-width: 768px) {
+  .theory-header h1 { font-size: 2.4rem; }
+  .theory-section { padding: 1.5rem; }
+  .grammar-table th,
+  .grammar-table td { padding: 0.8rem; font-size: 0.95rem; }
+}
