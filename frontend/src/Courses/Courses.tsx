@@ -45,7 +45,7 @@ const Courses = () => {
             <SetModal open={!!selectedSet} onClose={() => setSelectedSet(null)}>
                 <div>
                     <h1 className='set-modal-title'>Course</h1>
-                    <h4 className='set-modal-buttons'>Що обереш теорію/практику?</h4>
+                    <h4 className='set-modal-choose'>Що обереш теорію/практику?</h4>
                 
                     <div className='set-modal-buttons'>
                         <button onClick={goToTheory}>Теорія</button>

@@ -1,0 +1,119 @@
+.container {
+  width: 600px;
+  max-width: 88vw;
+  margin: 30px auto;
+  padding: 18px 32px;                   
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  color: #e0d8ff;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  font-family: inherit;
+}
+
+.container h1 {
+  text-align: center;
+  font-size: 2.1rem;
+  font-weight: 600;
+  background: linear-gradient(90deg, #c5a8ff, #a29bfe);
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 10px;
+}
+
+.container hr {
+  height: 1px;
+  border: none;
+  background: rgba(180, 160, 255, 0.25);
+  margin: 18px 0;
+}
+
+.container h2 {
+  font-size: 1.45rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #e0d8ff;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;                    
+}
+
+.container ul li {
+  padding: 13px 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(180, 160, 255, 0.3);
+  border-radius: 14px;
+  font-size: 1.07rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  margin-bottom: 5px;
+}
+
+.container ul li:hover {
+  background: rgba(180, 160, 255, 0.15);
+  border-color: rgba(180, 160, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+.container .correct {
+  background: rgba(0, 211, 151, 0.22) !important;
+  border-color: #00d397 !important;
+  color: #e0fff5;
+}
+
+.container .wrong {
+  background: rgba(255, 74, 74, 0.22) !important;
+  border-color: #ff4a4a !important;
+  color: #ffd0d0;
+}
+
+.container button {
+  margin: 26px auto 10px;
+  display: block;
+  width: 240px;
+  padding: 14px;
+  background: transparent;
+  color: white;
+  font-size: 1.15rem;
+  font-weight: 600;
+  border: 2px solid white;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.container button:hover {
+  background: white;
+  color: #2a2a40;
+}
+
+.container .index {
+  text-align: center;
+  font-size: 1rem;
+  opacity: 0.75;
+  margin-top: 6px;
+}
+
+.container h2.score-result {
+  text-align: center;
+  font-size: 1.9rem;
+  line-height: 1.4;
+  margin: 20px 0 30px;
+}
+
+.container .score-result strong {
+  font-size: 2.7rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #a29bfe, #8b7eff);
+  -webkit-background-clip: text;
+  color: transparent;
+}

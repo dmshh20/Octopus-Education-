@@ -1,11 +1,9 @@
-import React from 'react'
+import { presentSimpleData } from '../../data/data'
+import Quiz from '../Quiz'
+
 
 const A1PracticePS = () => {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <Quiz data={presentSimpleData} title="Present Simple" > </Quiz>
 }
 
 export default A1PracticePS
