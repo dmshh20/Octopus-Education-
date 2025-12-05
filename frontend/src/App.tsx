@@ -54,7 +54,6 @@ function App() {
       <Route path="/courses/a1-presentsimple/practice" element={<A1PracticePS></A1PracticePS>} />
       <Route path="/courses/a1-futuresimple/practice" element={<A1PracticePF></A1PracticePF>} />
 
-      <Route path="/courses/a1-futuresimple/practice" element={<A1FutureSimple></A1FutureSimple>} />
       <Route path="/courses/a2-presentcontinuous/practice" element={<A2PracticePC></A2PracticePC>} />
       <Route path="/courses/b1-presentperfect/practice" element={<B1PracticePP></B1PracticePP>} />
       <Route path="/courses/b2-conditionals/practice" element={<B2PracticeConditionals></B2PracticeConditionals>} />
