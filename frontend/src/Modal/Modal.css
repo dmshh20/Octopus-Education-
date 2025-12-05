@@ -40,6 +40,34 @@
 
 .off-scroll {
     overflow: hidden;
-    padding-right: 17px; 
+    /* padding-right: 17px;  */
+    /* padding-right: calc(100vw - 100%); */
 }
 
+
+/* set modals */
+.set-modal-styles {
+    position: relative;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #1f1f3a;
+    /* padding: 60px; */
+    height: 400px;
+    width: 550px;
+    z-index: 1000;
+    border-radius: 16px;
+}
+
+.set-modal-fa-xmark {
+    position: relative;
+    left: 250px;
+    top: 10px;
+    cursor: pointer;
+
+}
+
+.set-modal-styles {
+    text-align: center;
+}

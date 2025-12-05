@@ -1,117 +1,185 @@
-/* --- Global Container Styles --- */
 .section-courses {
-    /* Basic container, adjust as needed */
-    padding: 20px;
+  min-height: 100vh;
+  padding: 80px 20px;
+  background: #2a2a40;
 }
 
 .courses-info {
-    text-align: center;
-    margin-top: 50px;
-    color: #ffffff;
-    font-weight: 1000;
+  text-align: center;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #e0d8ff;
+  margin-bottom: 80px;
+  letter-spacing: 0.5px;
 }
 
-/* --- Grid for Course Cards --- */
-.available-courses {    
-    display: grid;
-    /* Removed align-items and justify-content from grid container 
-       as grid-template-columns is fixed */
-    grid-template-columns: 230px 230px 230px 230px;
-    /* Center the entire grid container */
-    justify-content: center;
-    margin-top: 50px;
-    gap: 20px; /* Increased gap for better spacing */
+.available-courses {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* --- Individual Course Card --- */
 .course {
-    border: 2px solid white;
-    background-color: rgba(255, 255, 255, 0.174);
-    border-radius: 12px;
-    width: 230px;
-    height: 230px;
-    
-    /* CRITICAL FIX: Base for absolute positioning */
-    position: relative; 
-    
-    /* Ensure nothing overflows */
-    overflow: hidden; 
-
-    /* Removed grid/flex from the .course itself to manage children with absolute positioning */
+  position: relative;
+  height: 360px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-/* --- Image Card (The Element That Was Overlapping) --- */
+.course:hover {
+  border-color: rgba(180, 160, 255, 0.4);
+  background: rgba(255, 255, 255, 0.07);
+  transform: translateY(-6px);
+}
+
 .image-card {
-    height: 200px;
-    width: auto; /* Allows the image to scale naturally */
-    max-width: 100%;
-    
-    position: absolute;
-    
-    /* Center the image within the .course container */
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    /* LOWER Z-INDEX: The image sits *under* the text and button */
-    z-index: 1; 
-
-    /* Removed unnecessary padding-left and margin-bottom */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
-/* --- Top Description (About Course) --- */
+.course:hover .image-card {
+  transform: scale(1.05);
+}
+
+.course::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(42, 42, 64, 0.8) 100%);
+}
+
 .course .about-course {
-    position: absolute;
-    top: 10px; /* Position at the top */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    text-align: center;
-    color: white;
-    
-    /* HIGH Z-INDEX: Sits above the image */
-    z-index: 5; 
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 600;
+  z-index: 2;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
 }
 
-/* --- Bottom Status/Level Description --- */
 .course-describe {
-    display: flex;
-    position: absolute; 
-    bottom: 10px; 
-    left: 10px;
-    right: 10px;
-    justify-content: space-between;
-    
-    /* HIGH Z-INDEX: Sits above the image */
-    z-index: 5; 
-    color: #fff;
+  position: absolute;
+  bottom: 20px;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
+  color: #e0d8ff;
 }
-.course-describe .course-level {
-    font-size: 12px;
-    /* Removed relative positioning for simplicity */
+
+.course-level {
+  font-size: 0.95rem;
+  font-weight: 500;
+  background: rgba(108, 99, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(108, 99, 255, 0.3);
 }
-.course-describe .status {
-    font-size: 12px;
-    /* Removed relative positioning for simplicity */
+
+.status {
+  font-size: 0.9rem;
+  opacity: 0.9;
 }
 
 .start-course {
-    position: absolute;
-    bottom: 40px;
-    left: 50%; 
-    transform: translateX(-50%);
-    z-index: 10; 
-    cursor: pointer;
-    padding: 5px  50px;
-    background-color: #a96e15;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: 600;
-    border: 1px solid rgb(144, 123, 7);
-
+  position: absolute;
+  bottom: 62px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  padding: 12px 36px;
+  background: transparent;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border: 2px solid white;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
 }
+
 .start-course:hover {
-    background-color: #b47920;
+  background: white;
+  color: #2a2a40;
 }
 
+.set-modal-title {
+  text-align: center;
+  font-size: 2.2rem;
+  color: #e0d8ff;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.set-modal-buttons h4 {
+  text-align: center;
+  color: #b0b0ff;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+
+.set-modal-choose {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  font-size: 20px;
+  color: #e0d8ff;
+}
+
+.set-modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.set-modal-buttons button {
+  padding: 16px 44px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  border-radius: 50px;
+  cursor: pointer;
+  min-width: 180px;
+  transition: all 0.3s ease;
+}
+
+.set-modal-buttons button:hover {
+  background: white;
+  color: #2a2a40;
+}
+
+@media (max-width: 768px) {
+  .available-courses {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  
+  .courses-info {
+    font-size: 2rem;
+  }
+  
+  .set-modal-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .set-modal-buttons button {
+    width: 80%;
+  }
+}

@@ -1,81 +1,59 @@
 import './Courses.css'
-import a1 from '../images/a1.png'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { EnglishSets, type EnglishSet } from '../data/sets'
+import SetModal from '../Modal/SetModal'
 
-const Courses = () => {
+
+const Courses = () => { 
+    const [selectedSet, setSelectedSet] = useState<EnglishSet | null>(null)
+    const navigate = useNavigate()
+
+    const goToPractice = () => {
+        if (!selectedSet) return
+        navigate(`${selectedSet.id}/practice`)
+    }
+
+     const goToTheory = () => {
+        if (!selectedSet) return
+        navigate(`${selectedSet.id}/theory`)
+    }
+
+
   return (
     <section className='section-courses'>
          
          <h1 className='courses-info'>Всі доступні курси для кожного рівня</h1>
 
-
         <div className='available-courses'>
-            
-            <div className='course'>
-                <p className='about-course'>Курс для початківців</p>
+            {EnglishSets.map((set) => (
+
+            <div key={set.id} className='course'>
+                <p className='about-course'>{set.title}</p>
                 
-                <img src={a1} alt="" className='image-card' />
-                <Link to={'/beginercourse'}>
-                  <button className='start-course'>Розпочати</button>
-                </Link>
+                <img src={set.image} alt="" className='image-card' />
+                  <button onClick={() => setSelectedSet(set)} className='start-course'>Розпочати</button>
             
 
                 <div className='course-describe'>
-                    <p className='course-level'>A1</p>
-                    <p className='status'>Вступ/Основи</p>
+                    <p className='course-level'>{set.level}</p>
+                    <p className='status'>{set.status}</p>
                 </div>
             </div>
-             <div className='course'>
-                <p className='about-course'>Курс для початківців</p>
-                
-                <img src={a1} alt="" className='image-card' />
-                <button className='start-course'>Розпочати</button>
-            
+            ))}
 
-                <div className='course-describe'>
-                    <p className='course-level'>A1</p>
-                    <p className='status'>Вступ/Основи</p>
-                </div>
-            </div>
-            <div className='course'>
-                <p className='about-course'>Курс для початківців</p>
+            <SetModal open={!!selectedSet} onClose={() => setSelectedSet(null)}>
+                <div>
+                    <h1 className='set-modal-title'>Course</h1>
+                    <h4 className='set-modal-choose'>Що обереш теорію/практику?</h4>
                 
-                <img src={a1} alt="" className='image-card' />
-                <button className='start-course'>Розпочати</button>
-            
-
-                <div className='course-describe'>
-                    <p className='course-level'>A1</p>
-                    <p className='status'>Вступ/Основи</p>
+                    <div className='set-modal-buttons'>
+                        <button onClick={goToTheory}>Теорія</button>
+                        <button onClick={goToPractice}>Практика</button>
+                    </div>
                 </div>
-            </div>
-            <div className='course'>
-                <p className='about-course'>Курс для початківців</p>
-                
-                <img src={a1} alt="" className='image-card' />
-                <button className='start-course'>Розпочати</button>
-            
-
-                <div className='course-describe'>
-                    <p className='course-level'>A1</p>
-                    <p className='status'>Вступ/Основи</p>
-                </div>
-            </div>
-            <div className='course'>
-                <p className='about-course'>Курс для початківців</p>
-                
-                <img src={a1} alt="" className='image-card' />
-                <button className='start-course'>Розпочати</button>
-            
-
-                <div className='course-describe'>
-                    <p className='course-level'>A1</p>
-                    <p className='status'>Вступ/Основи</p>
-                </div>
-            </div>
-            
+            </SetModal>
         </div>
-
 
     </section>
 
