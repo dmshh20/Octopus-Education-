@@ -11,6 +11,7 @@ import { MessagesModule } from './messages/messages.module';
 import { ArcjetGuard, ArcjetModule, fixedWindow, shield } from '@arcjet/nest';
 import { APP_GUARD } from '@nestjs/core';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { CompletedSetsModule } from './completed-sets/completed-sets.module';
 
 @Module({
   imports: [
@@ -30,12 +31,13 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
       ],
     }),
     
-    MongooseModule.forRoot(ENV.MONGO_URL as string),
+    // MongooseModule.forRoot(ENV.MONGO_URL as string),
     DatabaseModule,
     AuthModule,
     FormModule,
-    MessagesModule,
-    CloudinaryModule
+    // MessagesModule,
+    CloudinaryModule,
+    CompletedSetsModule
   ],
   controllers: [AppController],
   providers: [AppService,

@@ -110,6 +110,7 @@ export default function Header() {
                 onChange={handleUploadImage}
                  type="file"
                 accept='image/*'
+                capture="environment"
                 style={{display: 'none'}}
                  />
 

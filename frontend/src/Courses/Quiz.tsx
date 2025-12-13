@@ -1,5 +1,7 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './Practice.css'
+import { jwtDecode } from 'jwt-decode'
+import axios from 'axios'
 
 type Question = {
   question: string
@@ -22,6 +24,20 @@ const Quiz = ({ data }: QuizProps) => {
   const [lock, setLock] = useState(false)
   const [score, setScore] = useState(0)
 
+  // jwt decode
+
+  const token = localStorage.getItem('access_token')
+
+  if (!token) {
+    throw Error('token is invalid or not found')
+  }
+
+  const jwt = jwtDecode(token)
+  // console.log('MY TOKEN', jwt);
+  
+  
+  
+
   const option1 = useRef<HTMLLIElement>(null)
   const option2 = useRef<HTMLLIElement>(null)
   const option3 = useRef<HTMLLIElement>(null)
@@ -34,7 +50,7 @@ const Quiz = ({ data }: QuizProps) => {
       if (question.ans === ans) {
         setScore((score) => score + 1)
         e.currentTarget.classList.add('correct')
-      } else {
+        } else {
         e.currentTarget.classList.add('wrong')
         wholeOptions[question.ans - 1].current?.classList.add('correct')
       }
@@ -60,6 +76,40 @@ const Quiz = ({ data }: QuizProps) => {
       option.current?.classList.remove('correct', 'wrong')
     })
   }
+
+  useEffect(() => {
+    if (result) {
+      console.log('CALL FN 1');
+      
+      saveUserScore()
+      console.log('CALL FN 2');
+    }
+  }, [result])
+
+  const saveUserScore = async () => {
+    try {
+      console.log('SCORE IN FN', score);
+      
+      const url = window.location.href
+      const sendForm = {score, url}
+
+      const request = await axios.post('http://localhost:3000/completed-sets', sendForm,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+
+      console.log('backend reponse', request.data);
+      return request
+    } catch(error) {
+      console.log(error);
+      
+      throw error
+    }
+  }
+
+
 
   const reset = () => {
     setQuestion(data[0])

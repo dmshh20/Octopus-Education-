@@ -1,7 +1,8 @@
 import { Column, Entity, Index, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Role } from "./role.entity";
 import { IsOptional, IsUrl } from "class-validator";
-
+import { CompletedSets } from "./completedSet.entity";
+    
 @Entity('users')
 export class User {
     @PrimaryGeneratedColumn()
@@ -28,4 +29,9 @@ export class User {
     @Column({nullable: true})
     profileUrl: string
 
+    @Column({type: 'integer', default: 0})
+    stars: number
+
+    @OneToMany(() => CompletedSets, (completed) => completed.user, { onDelete: 'CASCADE' })
+    completedSets: CompletedSets[]
 }
