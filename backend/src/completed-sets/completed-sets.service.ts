@@ -1,37 +1,47 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { error } from 'console';
+import { GetUserDecoratorDto } from 'src/auth/decorator/dto/GetUser.decorator.dto';
 import { CompletedSets } from 'src/entities/completedSet.entity';
 import { Repository } from 'typeorm';
-import {v4 as uuidv4} from 'uuid'
+import { completedScoreDto } from './dto/completedScore.dto';
 
 @Injectable()
 export class CompletedSetsService {
     constructor(
-        @InjectRepository(CompletedSets) private readonly completedSet: Repository<CompletedSets>) {}
+        @InjectRepository(CompletedSets) private readonly completedSetRepository: Repository<CompletedSets>) {}
 
-    async saveUserScore(body: any, user: any) {
-        const uuid = uuidv4()
-        const url = body.url.split('/').at(-2)
-        
+    async saveUserScore(body: completedScoreDto, user: GetUserDecoratorDto) {
         try {
-            const score = this.completedSet.create({
+          const availableNewStars = await this.completedSetRepository.findOne({
+            where: {
+                user: {id: user.id},
+                setName: body.setName
+            }, order: {
+                dailyStars: "DESC"
+            }
+          })
+
+          const lastTimePassTheSet = availableNewStars?.dailyStars
+          const convertLastTimePassTheSet = new Date(String(lastTimePassTheSet)).getTime()
+          const oneDay = 24 * 60 * 60 * 1000
+          const currentTime = Date.now()
+          
+        if (currentTime - convertLastTimePassTheSet > oneDay || !lastTimePassTheSet) {
+
+            const score = this.completedSetRepository.create({
                 score: body.score,
-                user: user.id,
-                dailyStars: '2025-12-12T19:34:45.000Z',
-                setName: url
+                dailyStars: new Date(),
+                setName: body.setName,
+                user: {id: user.id}
             })
 
-            const saveScore = await this.completedSet.save(score)
-
-            console.log('BODY SCORE', body.score);
-            console.log('USER SCORE', user);
+            const saveScore = await this.completedSetRepository.save(score)
             return saveScore
-        } catch(error) {
-            console.log(error);
-            
-            throw Error(error)
+        }
 
+          
+        } catch(error) {
+         throw new ConflictException('The user already passed this set')     
         }
     }
 }

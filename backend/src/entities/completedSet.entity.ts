@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, Index } from "typeorm";
 import { User } from "./user.entity";
 
-@Index(['user','setName'], {unique: true})
+@Index(['user','setName','dailyStars'])
 @Entity('completed_sets')
 export class CompletedSets {
     @PrimaryGeneratedColumn()

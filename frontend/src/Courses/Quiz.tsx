@@ -91,9 +91,11 @@ const Quiz = ({ data }: QuizProps) => {
       console.log('SCORE IN FN', score);
       
       const url = window.location.href
-      const sendForm = {score, url}
+      const setName = url.split('/').at(-2)
 
-      const request = await axios.post('http://localhost:3000/completed-sets', sendForm,{
+      const sendForm = {score, url, setName}
+
+      const request = await axios.post(import.meta.env.VITE_COMPLETED_SET, sendForm,{
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -103,8 +105,7 @@ const Quiz = ({ data }: QuizProps) => {
       console.log('backend reponse', request.data);
       return request
     } catch(error) {
-      console.log(error);
-      
+
       throw error
     }
   }

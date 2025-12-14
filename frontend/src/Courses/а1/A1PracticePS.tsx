@@ -3,8 +3,6 @@ import Quiz from '../Quiz'
 
 
 const A1PracticePS = () => {
-  console.log('PRESENT SIMPLE IS DONE');
-
   return <Quiz data={presentSimpleData}  > </Quiz>
 }
 
