@@ -79,21 +79,17 @@ const Quiz = ({ data }: QuizProps) => {
 
   useEffect(() => {
     if (result) {
-      console.log('CALL FN 1');
-      
       saveUserScore()
-      console.log('CALL FN 2');
     }
   }, [result])
 
   const saveUserScore = async () => {
     try {
-      console.log('SCORE IN FN', score);
-      
-      const url = window.location.href
-      const setName = url.split('/').at(-2)
-
-      const sendForm = {score, url, setName}
+     
+      const { origin, pathname } = window.location
+      const url = origin + pathname
+      const setName = url.split('/').filter(Boolean).at(-2)
+      const sendForm = { score, setName }
 
       const request = await axios.post(import.meta.env.VITE_COMPLETED_SET, sendForm,{
         headers: {
@@ -101,8 +97,6 @@ const Quiz = ({ data }: QuizProps) => {
           'Content-Type': 'application/json'
         }
       })
-
-      console.log('backend reponse', request.data);
       return request
     } catch(error) {
 

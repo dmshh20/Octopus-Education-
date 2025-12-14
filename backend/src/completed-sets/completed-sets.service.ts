@@ -26,7 +26,7 @@ export class CompletedSetsService {
           const oneDay = 24 * 60 * 60 * 1000
           const currentTime = Date.now()
           
-        if (currentTime - convertLastTimePassTheSet > oneDay || !lastTimePassTheSet) {
+        if (!lastTimePassTheSet || currentTime - convertLastTimePassTheSet > oneDay) {
 
             const score = this.completedSetRepository.create({
                 score: body.score,
