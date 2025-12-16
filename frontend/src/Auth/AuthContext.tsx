@@ -7,7 +7,10 @@ interface AuthContextType {
   decodedToken: JwtPayload | null;
   login: (token: string) => void;
   logout: () => void;
+  updateTotalStars: (stars: number) => void
+  totalStars: number
 }
+
 
 interface JwtPayload {
   email: string;
@@ -23,8 +26,8 @@ const AuthContext = createContext<AuthContextType | null>(null);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('access_token'));
   const [decodedToken, setDecodedToken] = useState<JwtPayload | null>(null)
+  const [totalStars, setTotalStars] = useState<number>(starsValidate())              
 
-                
   const tokenValidate = (token: string) => {
     if (!token) {
       setDecodedToken(null)
@@ -39,15 +42,31 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsLoggedIn(true); // triggers re-render in all components using this context
     tokenValidate(token)
   };
-
+  
   const logout = () => {
     localStorage.removeItem('access_token');
     setIsLoggedIn(false);
     setDecodedToken(null)
+    setTotalStars(0)
   };
     
+  const updateTotalStars = (stars: number) => {
+    setTotalStars(stars)
+    localStorage.setItem('stars', String(stars))
+
+  }
+
+  function starsValidate() {
+    const stars = localStorage.getItem('stars')
+    if (stars) {
+      return parseInt(stars) || 0
+    }
+    return 0
+  }
+
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn, decodedToken, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, decodedToken, login, logout, totalStars: totalStars, updateTotalStars}}>
       {children}
     </AuthContext.Provider>
   );

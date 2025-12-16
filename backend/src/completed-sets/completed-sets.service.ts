@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GetUserDecoratorDto } from 'src/auth/decorator/dto/GetUser.decorator.dto';
 import { CompletedSets } from 'src/entities/completedSet.entity';
@@ -11,7 +11,6 @@ export class CompletedSetsService {
         @InjectRepository(CompletedSets) private readonly completedSetRepository: Repository<CompletedSets>) {}
 
     async saveUserScore(body: completedScoreDto, user: GetUserDecoratorDto) {
-        try {
           const availableNewStars = await this.completedSetRepository.findOne({
             where: {
                 user: {id: user.id},
@@ -21,13 +20,15 @@ export class CompletedSetsService {
             }
           })
 
-          const lastTimePassTheSet = availableNewStars?.dailyStars
-          const convertLastTimePassTheSet = new Date(String(lastTimePassTheSet)).getTime()
+          const lastTimePassTheSet = availableNewStars?.dailyStars?.getTime()
           const oneDay = 24 * 60 * 60 * 1000
           const currentTime = Date.now()
           
-        if (!lastTimePassTheSet || currentTime - convertLastTimePassTheSet > oneDay) {
+        if (lastTimePassTheSet && currentTime - lastTimePassTheSet < oneDay) {
+            return {message: 'Cooldown is active. Stars not awarded.',}
+        }
 
+        try {
             const score = this.completedSetRepository.create({
                 score: body.score,
                 dailyStars: new Date(),
@@ -36,10 +37,18 @@ export class CompletedSetsService {
             })
 
             const saveScore = await this.completedSetRepository.save(score)
-            return saveScore
-        }
 
-          
+            const initQueryBuilder = this.completedSetRepository.createQueryBuilder('set')
+            const countStars = await initQueryBuilder
+                                            .select("SUM(set.score)", "totalStars")
+                                            .where("set.userId = :userId", {userId: user.id})
+                                            .getRawOne()
+
+            const totalStars = countStars?.totalStars ? parseInt(countStars.totalStars) : 0
+            return {
+                saveScore,
+                totalStars
+            }
         } catch(error) {
          throw new ConflictException('The user already passed this set')     
         }
