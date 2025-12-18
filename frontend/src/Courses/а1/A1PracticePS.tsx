@@ -3,7 +3,7 @@ import Quiz from '../Quiz'
 
 
 const A1PracticePS = () => {
-  return <Quiz data={presentSimpleData} title="Present Simple" > </Quiz>
+  return <Quiz data={presentSimpleData}  > </Quiz>
 }
 
 export default A1PracticePS

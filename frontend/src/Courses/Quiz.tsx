@@ -1,5 +1,7 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './Practice.css'
+import axios from 'axios'
+import { useAuth } from '../Auth/AuthContext'
 
 type Question = {
   question: string
@@ -21,6 +23,10 @@ const Quiz = ({ data }: QuizProps) => {
   const [index, setIndex] = useState(0)
   const [lock, setLock] = useState(false)
   const [score, setScore] = useState(0)
+  const { updateTotalStars } = useAuth()
+
+  const token = localStorage.getItem('access_token')
+
 
   const option1 = useRef<HTMLLIElement>(null)
   const option2 = useRef<HTMLLIElement>(null)
@@ -34,7 +40,7 @@ const Quiz = ({ data }: QuizProps) => {
       if (question.ans === ans) {
         setScore((score) => score + 1)
         e.currentTarget.classList.add('correct')
-      } else {
+        } else {
         e.currentTarget.classList.add('wrong')
         wholeOptions[question.ans - 1].current?.classList.add('correct')
       }
@@ -59,6 +65,40 @@ const Quiz = ({ data }: QuizProps) => {
     wholeOptions.map((option) => {
       option.current?.classList.remove('correct', 'wrong')
     })
+  }
+
+  useEffect(() => {
+    if (result) {
+      saveUserScore()
+    }
+  }, [result])
+
+   const saveUserScore = async () => {
+    try {                 
+    
+      if (!token) {
+        throw Error('token is invalid or not found')
+      }
+
+      const { origin, pathname } = window.location
+      const url = origin + pathname
+      const setName = url.split('/').filter(Boolean).at(-2)
+      const sendForm = { score, setName }
+
+      const request = await axios.post(import.meta.env.VITE_COMPLETED_SET, sendForm,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+
+      const totalStarsResponse = request.data.totalStars
+      updateTotalStars(totalStarsResponse)
+
+      return request.data
+    } catch(error) {
+      throw error
+    }
   }
 
   const reset = () => {

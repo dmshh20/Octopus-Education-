@@ -5,10 +5,10 @@ import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
 export default function Header() {
-   const { isLoggedIn, logout, decodedToken } = useAuth(); 
+   const { isLoggedIn, logout, decodedToken, totalStars, isLoading } = useAuth(); 
    const [image, setImage] = useState(import.meta.env.VITE_PROFILE_STANDART_USER_PHOTO)
    const fileUploadRef = useRef<HTMLInputElement>(null)
-
+  
     useEffect( () =>  {
       const token = localStorage.getItem('access_token')
       if (!token) {
@@ -80,11 +80,20 @@ export default function Header() {
 
       <nav className='header-nav'>
         <ul className='header-nav-list'>
+
           {decodedToken?.roleId === 2 || decodedToken?.roleId === 3 
           ?
-         <Link to='/trial-session'  style={{color: "white", textDecoration: 'none'}}><li style={{fontSize: '18px'}} ><i className="fa-solid fa-user"></i></li> </Link>  
+          <Link to='/trial-session'  style={{color: "white", textDecoration: 'none'}}><li style={{fontSize: '18px'}} ><i className="fa-solid fa-user"></i></li> </Link>  
           :
-           <></>}
+          <></>}
+
+         {isLoading ? 
+           <div className='packOfStars'>
+            <i className="fa-solid fa-shrimp"></i>
+            <div className='countOfStars'>{totalStars}</div>
+          </div>
+         : <></>}
+
 
           <Link to='/courses' style={{color: "white", textDecoration: 'none'}}>
             <li>Курси </li>
@@ -110,6 +119,7 @@ export default function Header() {
                 onChange={handleUploadImage}
                  type="file"
                 accept='image/*'
+                capture="environment"
                 style={{display: 'none'}}
                  />
 

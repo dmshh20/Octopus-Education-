@@ -1,4 +1,3 @@
-import React from 'react'
 import Quiz from '../Quiz'
 import { pastSimpleData } from '../../data/data'
 

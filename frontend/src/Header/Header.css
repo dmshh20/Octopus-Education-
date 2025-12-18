@@ -49,3 +49,23 @@
     top: 25px;
     cursor: pointer;
 }
+
+
+.fa-shrimp {
+    font-size: 24px;
+    cursor: pointer;
+    color: #F75270;
+    position: absolute;
+
+}
+.countOfStars {
+    position: relative;
+    background-color: lightblue;
+    left: 17px;
+    bottom: 14px;
+    border-radius: 4px;
+    padding: 2px;  
+    font-size: 13px;  
+    cursor: pointer;
+    color: #0a0a23;
+}
