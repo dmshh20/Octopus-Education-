@@ -97,7 +97,6 @@ const Quiz = ({ data }: QuizProps) => {
 
       return request.data
     } catch(error) {
-
       throw error
     }
   }
