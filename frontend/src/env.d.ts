@@ -6,8 +6,10 @@ interface ImportMetaEnv {
   readonly VITE_PROFILE_STANDART_USER_PHOTO: string
   readonly VITE_CLOUDINARY: string
   readonly VITE_COMPLETED_SET: string
+  readonly VITE_COUNT_STARS: string
 
 }
+
 
 interface ImportMeta {
   readonly env: ImportMetaEnv

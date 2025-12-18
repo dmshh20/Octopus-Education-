@@ -27,9 +27,6 @@ const Quiz = ({ data }: QuizProps) => {
 
   const token = localStorage.getItem('access_token')
 
-  if (!token) {
-    throw Error('token is invalid or not found')
-  }
 
   const option1 = useRef<HTMLLIElement>(null)
   const option2 = useRef<HTMLLIElement>(null)
@@ -76,9 +73,13 @@ const Quiz = ({ data }: QuizProps) => {
     }
   }, [result])
 
-  const saveUserScore = async () => {
+   const saveUserScore = async () => {
     try {                 
     
+      if (!token) {
+        throw Error('token is invalid or not found')
+      }
+
       const { origin, pathname } = window.location
       const url = origin + pathname
       const setName = url.split('/').filter(Boolean).at(-2)
@@ -100,8 +101,6 @@ const Quiz = ({ data }: QuizProps) => {
       throw error
     }
   }
-
-
 
   const reset = () => {
     setQuestion(data[0])

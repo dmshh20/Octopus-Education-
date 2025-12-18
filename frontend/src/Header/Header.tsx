@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
 export default function Header() {
-   const { isLoggedIn, logout, decodedToken, totalStars, updateTotalStars } = useAuth(); 
+   const { isLoggedIn, logout, decodedToken, totalStars, isLoading } = useAuth(); 
    const [image, setImage] = useState(import.meta.env.VITE_PROFILE_STANDART_USER_PHOTO)
    const fileUploadRef = useRef<HTMLInputElement>(null)
   
@@ -86,10 +86,13 @@ export default function Header() {
           <Link to='/trial-session'  style={{color: "white", textDecoration: 'none'}}><li style={{fontSize: '18px'}} ><i className="fa-solid fa-user"></i></li> </Link>  
           :
           <></>}
-          <div className='packOfStars'>
+
+         {isLoading ? 
+           <div className='packOfStars'>
             <i className="fa-solid fa-shrimp"></i>
             <div className='countOfStars'>{totalStars}</div>
           </div>
+         : <></>}
 
 
           <Link to='/courses' style={{color: "white", textDecoration: 'none'}}>

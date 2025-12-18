@@ -1,6 +1,7 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react'
 import { jwtDecode } from 'jwt-decode';
+import { countScore } from '../services/countScoreReq';
 
 interface AuthContextType {
   isLoggedIn: boolean;
@@ -9,6 +10,7 @@ interface AuthContextType {
   logout: () => void;
   updateTotalStars: (stars: number) => void
   totalStars: number
+  isLoading: boolean
 }
 
 
@@ -27,26 +29,53 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('access_token'));
   const [decodedToken, setDecodedToken] = useState<JwtPayload | null>(null)
   const [totalStars, setTotalStars] = useState<number>(starsValidate())              
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const tokenValidate = (token: string) => {
     if (!token) {
       setDecodedToken(null)
+      setIsLoading(false)
       return 
     }
+
     const payload: JwtPayload = jwtDecode(token)
     setDecodedToken(payload)
+    setIsLoading(true)
   }
 
-  const login = (token: string) => {
+   useEffect(() => {
+      const countRerender = async() => {
+        const token = localStorage.getItem('access_token')
+        if(token) {
+          tokenValidate(token) 
+           const count: number = await countScore()
+    setTotalStars(count)
+        } else {
+          setIsLoading(false)
+    
+        }
+
+      }
+      countRerender()
+    
+  },[])
+
+
+  const login = async (token: string) => {
     localStorage.setItem('access_token', token);
     setIsLoggedIn(true); // triggers re-render in all components using this context
     tokenValidate(token)
+    setTotalStars(starsValidate())
+    const count: number = await countScore()
+    setTotalStars(count)
   };
   
   const logout = () => {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('stars');
     setIsLoggedIn(false);
     setDecodedToken(null)
+    setIsLoading(false)
     setTotalStars(0)
   };
     
@@ -66,7 +95,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, decodedToken, login, logout, totalStars: totalStars, updateTotalStars}}>
+    <AuthContext.Provider value={{ isLoggedIn, decodedToken, login, logout, totalStars: totalStars, updateTotalStars, isLoading}}>
       {children}
     </AuthContext.Provider>
   );
