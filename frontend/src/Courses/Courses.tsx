@@ -24,7 +24,7 @@ const Courses = () => {
     const isOpenSet = (set: EnglishSet) => {
         return set.starsToUnlock > 0
     }
-
+ 
   return (
     <section className='section-courses'>
          
@@ -58,11 +58,13 @@ const Courses = () => {
             })}
 
             <UnlockedSet open={!!isLockedSet} onClose={() => setIsLockedSet(null)}>
-                <div>
-                    <h1>ASD</h1>
+                <div className='unlockedScreen'>
+                    <h1 className='unlockedSetName unlockedSetNamePadding'>Відкрити "{isLockedSet?.title}" ?</h1>
+                    <h1 className='unlockedSetName'>Це коштує {isLockedSet?.starsToUnlock}  <i className="fa-solid fa-shrimp unlocked-shrimp"></i></h1>
+
+                    <button className='confirmBuySet'>Купити</button>
                 </div>
             </UnlockedSet>            
-           
 
             <SetModal open={!!selectedSet} onClose={() => setSelectedSet(null)}>
                 <div>

@@ -17,7 +17,11 @@ const UnlockedSet = ({children, open, onClose}: UnlockedSet) => {
 
   return (
     <div className='overlay_style' onClick={onClose}>
-        <div onClick={(e) => e.stopPropagation()} className='unlockedInsideScreen'>{children}</div>
+        <div onClick={(e) => e.stopPropagation()} className='unlockedInsideScreen'>
+                      <i onClick={onClose} className="fa-solid fa-xmark unlocked-set"></i>
+
+          {children}
+          </div>
     </div>
   )
 }

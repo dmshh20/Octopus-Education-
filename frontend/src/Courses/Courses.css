@@ -213,3 +213,24 @@
 .locked-set {
   margin-left: 10px;
 }
+
+.unlockedSetName {
+  font-size: 25px;
+}
+.unlockedScreen {
+  margin-top: 20px;
+  text-align: center;
+  color: whitesmoke;
+}
+  
+.unlocked-shrimp {
+  margin-left: 10px;
+}
+.confirmBuySet {
+  margin-top: 20px;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-image: linear-gradient(to right top, #ffb800, #f1be10, #e3c41f, #d6c92e, #c9cd3c);
+  border: none;
+}
