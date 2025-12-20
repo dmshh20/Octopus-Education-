@@ -183,3 +183,33 @@
     width: 80%;
   }
 }
+
+
+
+.course.locked {
+  opacity: 0.6;
+  /* cursor: a; */
+  position: relative;
+}
+
+.locked-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  border-radius: 18px;
+  z-index: 10;
+}
+
+.lock-icon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+.locked-set {
+  margin-left: 10px;
+}
