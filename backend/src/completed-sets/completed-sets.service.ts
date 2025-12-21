@@ -25,10 +25,10 @@ export class CompletedSetsService {
             const currentTime = Date.now()
             
             if (lastTimePassTheSet && currentTime - lastTimePassTheSet < oneDay) {
-                const currentStars = await this.countStars(user)
+                // const currentStars = await this.countStars(user)
                 return {
                     message: 'Cooldown is active',
-                    totalStars: currentStars
+                    // totalStars: currentStars
                 }
             }
 
@@ -42,31 +42,31 @@ export class CompletedSetsService {
 
                 const saveScore = await this.completedSetRepository.save(score)
 
-                const totalStars = await this.countStars(user)
+                // const totalStars = await this.countStars(user)
                 
-                return {
-                    saveScore,
-                    totalStars
-                }
+                // return {
+                //     saveScore,
+                //     totalStars
+                // }
             } catch(error) {
             throw new ConflictException('The user already passed this set')     
             }
         } 
 
-        async countStars(user: GetUserDecoratorDto) {
-            try {
+        // async countStars(user: GetUserDecoratorDto) {
+        //     try {
 
-                const initQueryBuilder = await 
-                this.completedSetRepository.createQueryBuilder('set')
-                                                .select("SUM(set.score)", "totalStars")
-                                                .where("set.userId = :userId", {userId: user.id})
-                                                .getRawOne()
+        //         const initQueryBuilder = await 
+        //         this.completedSetRepository.createQueryBuilder('set')
+        //                                         .select("SUM(set.score)", "totalStars")
+        //                                         .where("set.userId = :userId", {userId: user.id})
+        //                                         .getRawOne()
 
-                const totalStars = initQueryBuilder?.totalStars ? parseInt(initQueryBuilder.totalStars) : 0
+        //         const totalStars = initQueryBuilder?.totalStars ? parseInt(initQueryBuilder.totalStars) : 0
 
-                return totalStars
-            } catch(error) {
-                throw Error('Error in count stars')
-            }
-        }
+        //         return totalStars
+        //     } catch(error) {
+        //         throw Error('Error in count stars')
+        //     }
+        // }
 }
