@@ -12,6 +12,7 @@ import { ArcjetGuard, ArcjetModule, fixedWindow, shield } from '@arcjet/nest';
 import { APP_GUARD } from '@nestjs/core';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { CompletedSetsModule } from './completed-sets/completed-sets.module';
+import { LockedSetModule } from './locked-set/locked-set.module';
 
 @Module({
   imports: [
@@ -37,7 +38,8 @@ import { CompletedSetsModule } from './completed-sets/completed-sets.module';
     FormModule,
     // MessagesModule,
     CloudinaryModule,
-    CompletedSetsModule
+    CompletedSetsModule,
+    LockedSetModule
   ],
   controllers: [AppController],
   providers: [AppService,

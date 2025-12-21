@@ -1,24 +1,24 @@
-    import { ConflictException, Injectable } from '@nestjs/common';
-    import { InjectRepository } from '@nestjs/typeorm';
-    import { GetUserDecoratorDto } from 'src/auth/decorator/dto/GetUser.decorator.dto';
-    import { CompletedSets } from 'src/entities/completedSet.entity';
-    import { Repository } from 'typeorm';
-    import { completedScoreDto } from './dto/completedScore.dto';
+import { ConflictException, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { GetUserDecoratorDto } from 'src/auth/decorator/dto/GetUser.decorator.dto';
+import { CompletedSets } from 'src/entities/completedSet.entity';
+import { Repository } from 'typeorm';
+import { completedScoreDto } from './dto/completedScore.dto';
 
-    @Injectable()
-    export class CompletedSetsService {
-        constructor(
-            @InjectRepository(CompletedSets) private readonly completedSetRepository: Repository<CompletedSets>) {}
+@Injectable()
+export class CompletedSetsService {
+    constructor(
+        @InjectRepository(CompletedSets) private readonly completedSetRepository: Repository<CompletedSets>) {}
 
-        async saveUserScore(body: completedScoreDto, user: GetUserDecoratorDto) {
-            const availableNewStars = await this.completedSetRepository.findOne({
-                where: {
-                    user: {id: user.id},
-                    setName: body.setName
-                }, order: {
-                    dailyStars: "DESC"
-                }
-            })
+    async saveUserScore(body: completedScoreDto, user: GetUserDecoratorDto) {
+        const availableNewStars = await this.completedSetRepository.findOne({
+            where: {
+                user: {id: user.id},
+                setName: body.setName
+            }, order: {
+                dailyStars: "DESC"
+            }
+        })
 
             const lastTimePassTheSet = availableNewStars?.dailyStars?.getTime()
             const oneDay = 24 * 60 * 60 * 1000
@@ -69,4 +69,4 @@
                 throw Error('Error in count stars')
             }
         }
-    }
+}

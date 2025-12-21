@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { EnglishSets, type EnglishSet } from '../data/sets'
 import SetModal from '../Modal/SetModal'
 import UnlockedSet from '../Modal/UnlockedSet'
+import axios from 'axios'
 
 
 const Courses = () => { 
@@ -25,6 +26,23 @@ const Courses = () => {
         return set.starsToUnlock > 0
     }
  
+    const buyLockedSet = async () => {
+        try {
+            const token = localStorage.getItem('token')
+            
+            const request = await axios.post('http:/localhost:3000', {}, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+            }
+        })
+
+
+        return request.data
+        } catch(error) {
+            throw Error('Error in buying set')
+        }
+    }
+
   return (
     <section className='section-courses'>
          
@@ -62,7 +80,7 @@ const Courses = () => {
                     <h1 className='unlockedSetName unlockedSetNamePadding'>Відкрити "{isLockedSet?.title}" ?</h1>
                     <h1 className='unlockedSetName'>Це коштує {isLockedSet?.starsToUnlock}  <i className="fa-solid fa-shrimp unlocked-shrimp"></i></h1>
 
-                    <button className='confirmBuySet'>Купити</button>
+                    <button className='confirmBuySet' onClick={() => buyLockedSet()}>Купити</button>
                 </div>
             </UnlockedSet>            
 
