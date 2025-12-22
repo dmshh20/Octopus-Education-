@@ -4,35 +4,36 @@ import { GetUserDecoratorDto } from 'src/auth/decorator/dto/GetUser.decorator.dt
 import { CompletedSets } from 'src/entities/completedSet.entity';
 import { Repository } from 'typeorm';
 import { completedScoreDto } from './dto/completedScore.dto';
+import { User } from 'src/entities/user.entity';
 
 @Injectable()
 export class CompletedSetsService {
     constructor(
-        @InjectRepository(CompletedSets) private readonly completedSetRepository: Repository<CompletedSets>) {}
+        @InjectRepository(CompletedSets) private readonly completedSetRepository: Repository<CompletedSets>,
+        @InjectRepository(User) private readonly UserRepository: Repository<User>
+        
+    ) {}
 
     async saveUserScore(body: completedScoreDto, user: GetUserDecoratorDto) {
         const availableNewStars = await this.completedSetRepository.findOne({
             where: {
                 user: {id: user.id},
                 setName: body.setName
-            }, order: {
-                dailyStars: "DESC"
             }
         })
 
+            const updatedUser = await this.UserRepository.findOneBy({id: user.id})
             const lastTimePassTheSet = availableNewStars?.dailyStars?.getTime()
             const oneDay = 24 * 60 * 60 * 1000
             const currentTime = Date.now()
             
             if (lastTimePassTheSet && currentTime - lastTimePassTheSet < oneDay) {
-                // const currentStars = await this.countStars(user)
-                return {
-                    message: 'Cooldown is active',
-                    // totalStars: currentStars
-                }
+                return updatedUser?.stars
             }
 
             try {
+                await this.UserRepository.increment({id: user.id}, 'stars', body.score)
+
                 const score = this.completedSetRepository.create({
                     score: body.score,
                     dailyStars: new Date(),
@@ -40,33 +41,28 @@ export class CompletedSetsService {
                     user: {id: user.id}
                 })
 
-                const saveScore = await this.completedSetRepository.save(score)
+                await this.completedSetRepository.save(score)
 
-                // const totalStars = await this.countStars(user)
-                
-                // return {
-                //     saveScore,
-                //     totalStars
-                // }
+                return updatedUser?.stars
             } catch(error) {
             throw new ConflictException('The user already passed this set')     
             }
         } 
 
-        // async countStars(user: GetUserDecoratorDto) {
-        //     try {
+        async countStars(user: GetUserDecoratorDto) {
+            try {
+                
+                const getUser = await this.UserRepository.findOneBy({id: user.id})
 
-        //         const initQueryBuilder = await 
-        //         this.completedSetRepository.createQueryBuilder('set')
-        //                                         .select("SUM(set.score)", "totalStars")
-        //                                         .where("set.userId = :userId", {userId: user.id})
-        //                                         .getRawOne()
+                if (!getUser) {
+                    throw Error('User not found')
+                }
 
-        //         const totalStars = initQueryBuilder?.totalStars ? parseInt(initQueryBuilder.totalStars) : 0
+                return getUser?.stars
+            } catch(error) {
+                throw Error('Failed count stars', error)
+            }
+        }
 
-        //         return totalStars
-        //     } catch(error) {
-        //         throw Error('Error in count stars')
-        //     }
-        // }
+      
 }

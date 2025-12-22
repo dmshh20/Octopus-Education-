@@ -48,8 +48,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const token = localStorage.getItem('access_token')
         if(token) {
           tokenValidate(token) 
-           const count: number = await countScore()
-    setTotalStars(count)
+          
         } else {
           setIsLoading(false)
     
@@ -66,8 +65,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsLoggedIn(true); // triggers re-render in all components using this context
     tokenValidate(token)
     setTotalStars(starsValidate())
-    const count: number = await countScore()
-    setTotalStars(count)
+    const stars = await countScore()
+    setTotalStars(stars)
   };
   
   const logout = () => {

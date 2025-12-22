@@ -15,6 +15,8 @@ export const countScore = async () => {
             }
         })
 
+        console.log('USER STARS', request.data);
+        
         
         return request.data
     } catch(error) {
