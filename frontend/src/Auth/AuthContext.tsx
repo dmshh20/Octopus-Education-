@@ -46,10 +46,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
    useEffect(() => {
       const countRerender = async() => {
         const token = localStorage.getItem('access_token')
+         const stars = await countScore()
+         setTotalStars(stars)
         if(token) {
           tokenValidate(token) 
-           const count: number = await countScore()
-    setTotalStars(count)
+          
         } else {
           setIsLoading(false)
     
@@ -60,14 +61,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     
   },[])
 
-
   const login = async (token: string) => {
     localStorage.setItem('access_token', token);
     setIsLoggedIn(true); // triggers re-render in all components using this context
     tokenValidate(token)
     setTotalStars(starsValidate())
-    const count: number = await countScore()
-    setTotalStars(count)
+    const stars = await countScore()
+    setTotalStars(stars)
   };
   
   const logout = () => {

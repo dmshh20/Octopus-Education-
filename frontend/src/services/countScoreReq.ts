@@ -14,8 +14,6 @@ export const countScore = async () => {
                 "Content-Type": "application/json" 
             }
         })
-
-        
         return request.data
     } catch(error) {
         throw error

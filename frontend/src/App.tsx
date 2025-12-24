@@ -21,6 +21,7 @@ import C1PracticePassiveVoice from './Courses/c1/C1PracticePassiveVoice'
 import A2PracticePC from './Courses/a2/A2PracticePC'
 import A1PracticePF from './Courses/а1/A1PracticePF'
 import B1PracticePP from './Courses/b1/B1PracticePP'
+import UnlockedSet from './Modal/unlockedSet'
 
 function App() {
   const path = useLocation()

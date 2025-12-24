@@ -92,7 +92,8 @@ const Quiz = ({ data }: QuizProps) => {
         }
       })
 
-      const totalStarsResponse = request.data.totalStars
+      const totalStarsResponse = request.data
+      
       updateTotalStars(totalStarsResponse)
 
       return request.data
