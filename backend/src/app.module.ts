@@ -9,10 +9,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ENV } from './lib/env';
 import { MessagesModule } from './messages/messages.module';
 import { ArcjetGuard, ArcjetModule, fixedWindow, shield } from '@arcjet/nest';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { CompletedSetsModule } from './completed-sets/completed-sets.module';
 import { LockedSetModule } from './locked-set/locked-set.module';
+import { LoggingInterceptor } from './interceptor/transform.interceptor';
 
 @Module({
   imports: [
@@ -45,7 +46,11 @@ import { LockedSetModule } from './locked-set/locked-set.module';
   providers: [AppService,
     {
       provide: APP_GUARD,
-      useClass: ArcjetGuard
+      useClass: ArcjetGuard,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor
     }
   ],
 })

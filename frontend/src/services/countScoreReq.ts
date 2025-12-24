@@ -14,10 +14,6 @@ export const countScore = async () => {
                 "Content-Type": "application/json" 
             }
         })
-
-        console.log('USER STARS', request.data);
-        
-        
         return request.data
     } catch(error) {
         throw error

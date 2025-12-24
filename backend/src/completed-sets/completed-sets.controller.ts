@@ -16,8 +16,15 @@ export class CompletedSetsController {
   }
 
   @Get('count-stars')
-  async countStars(@GetUser() user: GetUserDecoratorDto) {
-    return this.completedSetsService.countStars(user)
+  async countStars(@Req() req: any, @GetUser() user: GetUserDecoratorDto) {
+    const controller = new AbortController()
+
+    req.on('close', () => {
+      controller.abort()
+    })
+  
+
+  return this.completedSetsService.countStars(user, controller.signal);
   }
 
 

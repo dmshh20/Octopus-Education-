@@ -46,6 +46,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
    useEffect(() => {
       const countRerender = async() => {
         const token = localStorage.getItem('access_token')
+         const stars = await countScore()
+         setTotalStars(stars)
         if(token) {
           tokenValidate(token) 
           
@@ -58,7 +60,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       countRerender()
     
   },[])
-
 
   const login = async (token: string) => {
     localStorage.setItem('access_token', token);

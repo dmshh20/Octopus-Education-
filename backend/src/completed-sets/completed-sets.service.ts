@@ -49,19 +49,28 @@ export class CompletedSetsService {
             }
         } 
 
-        async countStars(user: GetUserDecoratorDto) {
-            try {
-                
-                const getUser = await this.UserRepository.findOneBy({id: user.id})
+        async countStars(user: GetUserDecoratorDto, signal?: AbortSignal) {
+        try {
+            const getUser = await this.UserRepository.findOneBy(
+                { id: user.id },
+            );
 
-                if (!getUser) {
-                    throw Error('User not found')
-                }
+           if (signal?.aborted) {
+            console.log('Signal is aborted.');
+            return
+           }
 
-                return getUser?.stars
-            } catch(error) {
-                throw Error('Failed count stars', error)
+            if (!getUser) { 
+                throw new Error('User not found')
             }
+
+            return getUser.stars;
+        } catch (error) {
+            if (error.name === 'AbortError' || signal?.aborted) {
+                return;
+            }
+            throw new Error(`Failed count stars: ${error.message}`);
+        }
         }
 
       
