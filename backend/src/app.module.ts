@@ -12,8 +12,8 @@ import { ArcjetGuard, ArcjetModule, fixedWindow, shield } from '@arcjet/nest';
 import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { CompletedSetsModule } from './completed-sets/completed-sets.module';
-import { LockedSetModule } from './locked-set/locked-set.module';
 import { LoggingInterceptor } from './interceptor/transform.interceptor';
+import { SetsModule } from './sets/sets.module';
 
 @Module({
   imports: [
@@ -40,7 +40,7 @@ import { LoggingInterceptor } from './interceptor/transform.interceptor';
     // MessagesModule,
     CloudinaryModule,
     CompletedSetsModule,
-    LockedSetModule
+    SetsModule
   ],
   controllers: [AppController],
   providers: [AppService,
