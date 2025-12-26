@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { EnglishSets, type EnglishSet } from '../data/sets'
 import SetModal from '../Modal/SetModal'
 import UnlockedSet from '../Modal/UnlockedSet'
-import axios from 'axios'
 
 
 const Courses = () => { 
@@ -28,16 +27,18 @@ const Courses = () => {
  
     const buyLockedSet = async () => {
         try {
+            console.log(isLockedSet?.title);
+            
             const token = localStorage.getItem('token')
             
-            const request = await axios.post('http:/localhost:3000', {}, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-            }
-        })
+        //     const request = await axios.post('http://localhost:3000', {}, {
+        //         headers: {
+        //             'Authorization': `Bearer ${token}`
+        //     }
+        // })
 
 
-        return request.data
+        // return request.data
         } catch(error) {
             throw Error('Error in buying set')
         }
