@@ -1,10 +1,14 @@
-import { Column, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-export class userPuchase {
+@Entity('user_purchases')
+export class UserPurchase {
     @PrimaryGeneratedColumn()
     id: number
 
     @Column()
     setId: number
+
+    @Column()
+    userId: number
 
 }

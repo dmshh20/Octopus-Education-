@@ -9,7 +9,6 @@ import axios from 'axios'
 
 const Courses = () => { 
     const [isLockedSet, setIsLockedSet] = useState<EnglishSet | null>(null)
-    // const [selectedSet, setSelectedSet] = useState<EnglishSet | null>(null)
     const [selectedSet, setSelectedSet] = useState<EnglishSet | null>(null)
     const [sets, setSets] = useState<EnglishSet[]>([])
     const token = localStorage.getItem('access_token')
@@ -30,21 +29,22 @@ const Courses = () => {
         return set.starsToUnlock > 0
     }
  
-    const buyLockedSet = async (score: number | undefined) => {
+    const buyLockedSet = async (score: number | undefined, setId: number | undefined) => {
         try {
-            console.log(score);
-            
-            const request = await axios.post(import.meta.env.VITE_BUYING_SET, {score},  {
+
+            const body = {score, setId}
+            const request = await axios.post(import.meta.env.VITE_BUYING_SET, body,  {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 }
             })
 
+            setSets((sets) => sets.map((set) => set.id === setId ? {...set, isUnlocked: true } : set))
+            
+            setIsLockedSet(null)
             return request.data 
         } catch(error) {    
-            console.log(error);
-            
             throw Error('Failed buying sets')
         }
     }
@@ -53,11 +53,11 @@ const Courses = () => {
     useEffect(() => {
         const renderSets = async () => {
              try {
-                const response = await axios.get(import.meta.env.VITE_GET_SETS, {
+                const request = await axios.get(import.meta.env.VITE_GET_SETS, {
                         headers: { Authorization: `Bearer ${token}` }
                 });
                 
-            setSets(response.data)
+            setSets(request.data)
         } catch(error) {
             throw Error('Error during render sets')
         }
@@ -73,7 +73,7 @@ const Courses = () => {
 
         <div className='available-courses'>
             {sets.map((set) => {
-                const isLocked = isOpenSet(set)
+               const isLocked = set.starsToUnlock > 0 && !set.isUnlocked
 
            return (
              <div key={set.id} className={`course ${isLocked ? 'locked' : ''}`}>
@@ -103,7 +103,7 @@ const Courses = () => {
                     <h1 className='unlockedSetName unlockedSetNamePadding'>Відкрити "{isLockedSet?.title}" ?</h1>
                     <h1 className='unlockedSetName'>Це коштує {isLockedSet?.starsToUnlock}  <i className="fa-solid fa-shrimp unlocked-shrimp"></i></h1>
 
-                    <button className='confirmBuySet' onClick={() => buyLockedSet(isLockedSet?.starsToUnlock)}>Купити</button>
+                    <button className='confirmBuySet' onClick={() => buyLockedSet(isLockedSet?.starsToUnlock, isLockedSet?.id)}>Купити</button>
                 </div>
             </UnlockedSet>            
 

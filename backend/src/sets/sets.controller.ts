@@ -3,21 +3,21 @@ import { SetsService } from './sets.service';
 import { GetUser } from 'src/auth/decorator/getUser.decorator';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 import { GetUserDecoratorDto } from 'src/auth/decorator/dto/GetUser.decorator.dto';
-import { buySet } from './dto/buySet.dto';
+import { buySetDto } from './dto/buySet.dto';
 
-
+@UseGuards(JwtAuthGuard)
 @Controller('sets')
 export class SetsController {
   constructor(private readonly setsService: SetsService) {}
 
   @Get('')
-  async getSets() {
-    return this.setsService.getSets()
+  async getSets(@GetUser() user: GetUserDecoratorDto) {
+    return this.setsService.getSets(user)
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Post('buy')
-  async postSets(@Body() body: buySet, @GetUser() user: GetUserDecoratorDto) {
+  async postSets(@Body() body: buySetDto, @GetUser() user: GetUserDecoratorDto) {
     return this.setsService.postSets(body, user)
   }
 }

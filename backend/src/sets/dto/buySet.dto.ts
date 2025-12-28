@@ -1,6 +1,10 @@
-import { IsNumber } from "class-validator";
+import { IsNumber, IsPositive } from "class-validator";
 
-export class buySet {
+export class buySetDto {
     @IsNumber()
+    @IsPositive()
     score: number
+
+    @IsNumber()
+    setId: number
 }

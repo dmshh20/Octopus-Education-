@@ -4,7 +4,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity('sets')
 export class Sets {
     @PrimaryGeneratedColumn()
-    id: string
+    id: number
 
     @Column()
     setName: string
