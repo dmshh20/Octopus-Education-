@@ -2,21 +2,27 @@ import {type ReactNode} from 'react'
 import { handleOffScroll } from '../hooks/handleOffScroll'
 import { handleEscape } from '../hooks/handleEscape'
 
-interface UnlockedSet {
+interface UnlockedProps {
     children: ReactNode
     open: any
-    onClose: any
+    onClose: () => any
+    error: () => any
 }
 
-const UnlockedSet = ({children, open, onClose}: UnlockedSet) => {
+const UnlockedSet = ({children, open, onClose, error}: UnlockedProps) => {
 
   handleOffScroll(open)
   handleEscape(open, onClose)
 
     if (!open) return null
 
+    const handleClose = () => {
+        error()
+        onClose()
+    }
+
   return (
-    <div className='overlay_style' onClick={onClose}>
+    <div className='overlay_style' onClick={handleClose}>
         <div onClick={(e) => e.stopPropagation()} className='unlockedInsideScreen'>
                       <i onClick={onClose} className="fa-solid fa-xmark unlocked-set"></i>
 

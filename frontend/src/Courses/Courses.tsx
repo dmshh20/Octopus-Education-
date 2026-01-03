@@ -9,6 +9,7 @@ import { useStars } from '../context/StarsContext'
 
 
 const Courses = () => { 
+    const [error, setError] = useState<string | boolean>('')
     const [isLockedSet, setIsLockedSet] = useState<EnglishSet | null>(null)
     const [selectedSet, setSelectedSet] = useState<EnglishSet | null>(null)
     const [sets, setSets] = useState<EnglishSet[]>([])
@@ -27,7 +28,11 @@ const Courses = () => {
         navigate(`${selectedSet.setName}/theory`)
     }
 
- 
+    const openUnlockedModal = () => {
+        setIsLockedSet(null)
+        setError(false);
+    };
+
     const buyLockedSet = async (score: number | undefined, setId: number | undefined) => {
         try {
             if (!score || !setId) {
@@ -41,6 +46,14 @@ const Courses = () => {
                     'Content-Type': 'application/json'
                 }
             })
+            console.log(request.data);
+            
+            if (request.data.message === 'Insufficient funds') {
+                setError('Insufficient funds')
+                throw Error('Insufficient funds')
+
+            }
+
 
             setSets((sets) => sets.map((set) => set.id === setId ? {...set, isUnlocked: true } : set))
             
@@ -100,13 +113,16 @@ const Courses = () => {
             </div>
            )
             })}
-
-            <UnlockedSet open={!!isLockedSet} onClose={() => setIsLockedSet(null)}>
+``
+            <UnlockedSet open={!!isLockedSet} onClose={openUnlockedModal} error={() => setError(true)} >
                 <div className='unlockedScreen'>
                     <h1 className='unlockedSetName unlockedSetNamePadding'>Відкрити "{isLockedSet?.title}" ?</h1>
                     <h1 className='unlockedSetName'>Це коштує {isLockedSet?.starsToUnlock}  <i className="fa-solid fa-shrimp unlocked-shrimp"></i></h1>
 
-                    <button className='confirmBuySet' onClick={() => buyLockedSet(isLockedSet?.starsToUnlock, isLockedSet?.id)}>Купити</button>
+                    <div className='buyAndErrorButton'>
+                        <button className='confirmBuySet' onClick={() => buyLockedSet(isLockedSet?.starsToUnlock, isLockedSet?.id)}>Купити</button>
+                        <b>{error}</b>
+                    </div>
                 </div>
             </UnlockedSet>            
 

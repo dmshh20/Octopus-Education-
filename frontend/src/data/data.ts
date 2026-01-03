@@ -67,7 +67,7 @@ export const passiveVoiceData = [
   { question: "English ___ all over the world.", option1: "is spoken", option2: "speaks", option3: "spoke", option4: "was spoken", ans: 1 },
   { question: "The room ___ every day.", option1: "cleans", option2: "is cleaned", option3: "cleaned", option4: "cleaning", ans: 2 },
   { question: "This house ___ in 1990.", option1: "built", option2: "was built", option3: "is built", option4: "has built", ans: 2 },
-  { question: "The letter ___ tomorrow.", option1: "will send", option2: "will be sent", option3: "will be sent", option4: "sent", ans: 3 },
+  { question: "The letter ___ tomorrow.", option1: "will send", option2: "will sent", option3: "will be sent", option4: "sent", ans: 3 },
   { question: "The car ___ at the moment.", option1: "is repaired", option2: "is being repaired", option3: "repaired", option4: "repairs", ans: 2 },
   { question: "All tickets ___ already.", option1: "sold", option2: "were sold", option3: "have been sold", option4: "are selling", ans: 3 },
   { question: "The thief ___ by the police.", option1: "caught", option2: "was caught", option3: "has caught", option4: "is catching", ans: 2 },

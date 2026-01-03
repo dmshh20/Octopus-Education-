@@ -32,6 +32,14 @@ export class SetsService {
 
     async postSets(body: buySetDto, user: GetUserDecoratorDto) {
         
+        const findUserBeforeUpdate = await this.UserRepository.findOneBy({id: user.id})
+
+        if ((Number(findUserBeforeUpdate?.stars) - body.score) < 0) {
+            console.log("Insufficient funds");
+            
+            return {message: "Insufficient funds"}
+        }
+ 
         await this.UserRepository.decrement({id: user.id}, 'stars', body.score)
         
         const purchaseSet = this.UserPurchaseRepository.create({
@@ -39,9 +47,9 @@ export class SetsService {
             userId: user.id
         })
 
+        const findUserAfterUpdate = await this.UserRepository.findOneBy({id: user.id})
        await this.UserPurchaseRepository.save(purchaseSet)
-        const findUser = await this.UserRepository.findOneBy({id: user.id})
-        return findUser?.stars
+        return findUserAfterUpdate?.stars
     }
 
 }
