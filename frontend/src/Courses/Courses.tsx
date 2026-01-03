@@ -30,7 +30,7 @@ const Courses = () => {
  
     const buyLockedSet = async (score: number | undefined, setId: number | undefined) => {
         try {
-            if (!score) {
+            if (!score || !setId) {
                 throw Error('No score to add')
             }
 
