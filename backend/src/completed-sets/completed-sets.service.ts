@@ -42,8 +42,9 @@ export class CompletedSetsService {
                 })
 
                 await this.completedSetRepository.save(score)
+                const findUserAfterUpdate = await this.UserRepository.findOneBy({id: user.id})
 
-                return updatedUser?.stars
+                return findUserAfterUpdate?.stars
             } catch(error) {
             throw new ConflictException('The user already passed this set')     
             }

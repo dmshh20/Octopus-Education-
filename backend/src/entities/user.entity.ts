@@ -2,6 +2,7 @@ import { Column, Entity, Index, ManyToMany, ManyToOne, OneToMany, PrimaryGenerat
 import { Role } from "./role.entity";
 import { IsOptional, IsUrl } from "class-validator";
 import { CompletedSets } from "./completedSet.entity";
+import { UserPurchase } from "./userPurchase";
     
 @Entity('users')
 export class User {
@@ -34,4 +35,7 @@ export class User {
 
     @OneToMany(() => CompletedSets, (completed) => completed.user, { onDelete: 'CASCADE' })
     completedSets: CompletedSets[]
+
+    @OneToMany(() => UserPurchase, (purchase) => purchase.userId)
+    userPurchasedId: UserPurchase
 }

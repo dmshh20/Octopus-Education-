@@ -21,7 +21,7 @@ import C1PracticePassiveVoice from './Courses/c1/C1PracticePassiveVoice'
 import A2PracticePC from './Courses/a2/A2PracticePC'
 import A1PracticePF from './Courses/а1/A1PracticePF'
 import B1PracticePP from './Courses/b1/B1PracticePP'
-import UnlockedSet from './Modal/unlockedSet'
+import { StarsProvider } from './context/StarsContext'
 
 function App() {
   const path = useLocation()
@@ -32,6 +32,8 @@ function App() {
 
   return (
    <> 
+
+   <StarsProvider>
    <Header></Header>
   <Routes>
       <Route path="/" element={<Main/>} />
@@ -57,10 +59,9 @@ function App() {
       <Route path="/courses/b1-presentperfect/practice" element={<B1PracticePP></B1PracticePP>} />
       <Route path="/courses/b2-conditionals/practice" element={<B2PracticeConditionals></B2PracticeConditionals>} />
       <Route path="/courses/c1-passivevoice/practice" element={<C1PracticePassiveVoice></C1PracticePassiveVoice>} />
-      
-
-
    </Routes>
+   </StarsProvider>
+
    </>
   )
 }

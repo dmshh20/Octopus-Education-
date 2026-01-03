@@ -3,9 +3,11 @@ import './Header.css'
 import { useAuth } from '../Auth/AuthContext'
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
+import { useStars } from '../context/StarsContext';
 
 export default function Header() {
-   const { isLoggedIn, logout, decodedToken, totalStars, isLoading } = useAuth(); 
+  const { stars } = useStars()
+   const { isLoggedIn, logout, decodedToken, isLoading } = useAuth(); 
    const [image, setImage] = useState(import.meta.env.VITE_PROFILE_STANDART_USER_PHOTO)
    const fileUploadRef = useRef<HTMLInputElement>(null)
   
@@ -90,7 +92,7 @@ export default function Header() {
          {isLoading ? 
            <div className='packOfStars'>
             <i className="fa-solid fa-shrimp"></i>
-            <div className='countOfStars'>{totalStars}</div>
+            <div className='countOfStars'>{stars}</div>
           </div>
          : <></>}
 

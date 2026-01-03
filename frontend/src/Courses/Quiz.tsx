@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './Practice.css'
 import axios from 'axios'
-import { useAuth } from '../Auth/AuthContext'
+import { useStars } from '../context/StarsContext'
 
 type Question = {
   question: string
@@ -23,7 +23,7 @@ const Quiz = ({ data }: QuizProps) => {
   const [index, setIndex] = useState(0)
   const [lock, setLock] = useState(false)
   const [score, setScore] = useState(0)
-  const { updateTotalStars } = useAuth()
+  const { updateTotalStars } = useStars()
 
   const token = localStorage.getItem('access_token')
 
@@ -95,6 +95,7 @@ const Quiz = ({ data }: QuizProps) => {
       const totalStarsResponse = request.data
       
       updateTotalStars(totalStarsResponse)
+      
 
       return request.data
     } catch(error) {

@@ -39,8 +39,9 @@ export class SetsService {
             userId: user.id
         })
 
-        const savingPurchaseSet = await this.UserPurchaseRepository.save(purchaseSet)
-        return savingPurchaseSet
+       await this.UserPurchaseRepository.save(purchaseSet)
+        const findUser = await this.UserRepository.findOneBy({id: user.id})
+        return findUser?.stars
     }
 
 }

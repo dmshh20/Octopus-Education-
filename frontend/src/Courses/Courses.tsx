@@ -5,6 +5,7 @@ import { imageMap, type EnglishSet } from '../data/sets'
 import SetModal from '../Modal/SetModal'
 import UnlockedSet from '../Modal/UnlockedSet'
 import axios from 'axios'
+import { useStars } from '../context/StarsContext'
 
 
 const Courses = () => { 
@@ -12,6 +13,7 @@ const Courses = () => {
     const [selectedSet, setSelectedSet] = useState<EnglishSet | null>(null)
     const [sets, setSets] = useState<EnglishSet[]>([])
     const token = localStorage.getItem('access_token')
+    const { updateTotalStars } = useStars()
 
     const navigate = useNavigate()
 
@@ -25,12 +27,12 @@ const Courses = () => {
         navigate(`${selectedSet.setName}/theory`)
     }
 
-    const isOpenSet = (set: EnglishSet) => {
-        return set.starsToUnlock > 0
-    }
  
     const buyLockedSet = async (score: number | undefined, setId: number | undefined) => {
         try {
+            if (!score) {
+                throw Error('No score to add')
+            }
 
             const body = {score, setId}
             const request = await axios.post(import.meta.env.VITE_BUYING_SET, body,  {
@@ -42,14 +44,15 @@ const Courses = () => {
 
             setSets((sets) => sets.map((set) => set.id === setId ? {...set, isUnlocked: true } : set))
             
+            updateTotalStars(score)
             setIsLockedSet(null)
-            return request.data 
+             updateTotalStars(request.data)
         } catch(error) {    
             throw Error('Failed buying sets')
         }
     }
 
-
+        
     useEffect(() => {
         const renderSets = async () => {
              try {
