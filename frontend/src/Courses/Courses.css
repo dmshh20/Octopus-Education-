@@ -234,3 +234,17 @@
   background-image: linear-gradient(to right top, #ffb800, #f1be10, #e3c41f, #d6c92e, #c9cd3c);
   border: none;
 }
+
+.buyAndErrorButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.buyAndErrorButton button {
+  margin-bottom: 10px;
+}
+.buyAndErrorButton b {
+  color: red;
+}
