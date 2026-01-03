@@ -19,15 +19,17 @@ export class CompletedSetsService {
             where: {
                 user: {id: user.id},
                 setName: body.setName
+            }, order: {
+                dailyStars: 'DESC'
             }
         })
-
+        
             const updatedUser = await this.UserRepository.findOneBy({id: user.id})
             const lastTimePassTheSet = availableNewStars?.dailyStars?.getTime()
-            const oneDay = 24 * 60 * 60 * 1000
+            const oneDay = 24 * 60 * 60 * 1000  
             const currentTime = Date.now()
             
-            if (lastTimePassTheSet && currentTime - lastTimePassTheSet < oneDay) {
+            if (lastTimePassTheSet && (currentTime - lastTimePassTheSet) < oneDay) {
                 return updatedUser?.stars
             }
 
