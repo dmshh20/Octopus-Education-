@@ -1,0 +1,43 @@
+.profilePage {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.profileEdit {
+    height: 550px;
+    width: 300px;
+    background-color: #0a0a23;
+    border-radius: 8px;
+}
+
+.statistics {
+    margin-left: 20px;
+    height: 550px;
+    width: 700px;
+    background-color: #0a0a23;
+    border-radius: 8px;
+}
+.chart {
+    margin-left: 70px;
+}
+
+.userProfile {
+    padding: 25px;
+    display: flex;
+    color: white;
+    font-size: 10px;
+    gap: 15px;
+}
+.userProfile h1 {
+    margin-top: 10px;
+}
+
+    /* 
+    .imageProfile {
+        height: 50px;
+        position: absolute;
+        right: 50px;
+        top: 25px;
+        cursor: pointer;
+    } */

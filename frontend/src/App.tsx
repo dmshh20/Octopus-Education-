@@ -22,6 +22,8 @@ import A2PracticePC from './Courses/a2/A2PracticePC'
 import A1PracticePF from './Courses/а1/A1PracticePF'
 import B1PracticePP from './Courses/b1/B1PracticePP'
 import { StarsProvider } from './context/StarsContext'
+import Profile from './Profile/Profile'
+import { UpdateImageProvider } from './context/UpdateImageContext'
 
 function App() {
   const path = useLocation()
@@ -34,6 +36,8 @@ function App() {
    <> 
 
    <StarsProvider>
+    <UpdateImageProvider>
+
    <Header></Header>
   <Routes>
       <Route path="/" element={<Main/>} />
@@ -41,6 +45,7 @@ function App() {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/courses" element={<Courses/>} />
       <Route path='/trial-session' element={<TrialSession/>}></Route>
+      <Route path='/profile' element={<Profile></Profile>}></Route>
 
       <Route path="/courses/a1-presentsimple/theory" element={<A1PresentSimple></A1PresentSimple>} />
       <Route path="/courses/a1-pastsimple/theory" element={<A1PastSimple></A1PastSimple>} />
@@ -60,6 +65,8 @@ function App() {
       <Route path="/courses/b2-conditionals/practice" element={<B2PracticeConditionals></B2PracticeConditionals>} />
       <Route path="/courses/c1-passivevoice/practice" element={<C1PracticePassiveVoice></C1PracticePassiveVoice>} />
    </Routes>
+    </UpdateImageProvider>
+
    </StarsProvider>
 
    </>

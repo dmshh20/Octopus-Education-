@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom'
 import './Header.css'
 import { useAuth } from '../Auth/AuthContext'
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useStars } from '../context/StarsContext';
+import { useUpdateProfile } from '../context/UpdateImageContext';
 
 export default function Header() {
-  const { stars } = useStars()
-   const { isLoggedIn, logout, decodedToken, isLoading } = useAuth(); 
-   const [image, setImage] = useState(import.meta.env.VITE_PROFILE_STANDART_USER_PHOTO)
-   const fileUploadRef = useRef<HTMLInputElement>(null)
-  
+    const { stars } = useStars()
+    const { isLoggedIn, logout, decodedToken, isLoading } = useAuth(); 
+       const { setImage, image } = useUpdateProfile()
+    
     useEffect( () =>  {
       const token = localStorage.getItem('access_token')
       if (!token) {
@@ -37,39 +37,6 @@ export default function Header() {
         
         getUserData()
     }, [isLoggedIn])  
-
-  
-     const handleFileUploadRef = async () =>  {
-      fileUploadRef.current?.click()
-    }
-    
-    const handleUploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-      try {
-          const file = e.target.files?.[0]
-
-          if (!file) {
-            throw new Error('File is not uploaded')
-          }
-
-          const formData = new FormData()
-          formData.append('file', file)
-
-          const token = localStorage.getItem('access_token')
-          const response = await axios.post(import.meta.env.VITE_CLOUDINARY,
-             formData, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          })         
-
-
-          const newImageUrl = response.data.url || response.data.secure_url
-           setImage(newImageUrl)
-      } catch(error) {
-        throw new Error('Error in uploading')
-      }
-
-    }
 
   return (  
     <header className='header'>
@@ -103,8 +70,9 @@ export default function Header() {
           {isLoggedIn ? (
             <div>
               <li onClick={logout}> Logout</li>
+              <Link to="profile">
               <img  className='imageProfile'
-                onClick={handleFileUploadRef}
+                // onClick={handleFileUploadRef}
                 src={image}
                 style={{
                     cursor: 'pointer',
@@ -112,18 +80,10 @@ export default function Header() {
                     height: '44px',
                     borderRadius: '50%',
                     objectFit: 'cover',
-                    // border: '1px solid black',
                     boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
                   }}
               ></img>
-                <input
-                ref={fileUploadRef}
-                onChange={handleUploadImage}
-                 type="file"
-                accept='image/*'
-                capture="environment"
-                style={{display: 'none'}}
-                 />
+              </Link>
 
             </div>
           ) : (
