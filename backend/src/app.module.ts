@@ -14,6 +14,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import { CompletedSetsModule } from './completed-sets/completed-sets.module';
 import { LoggingInterceptor } from './interceptor/transform.interceptor';
 import { SetsModule } from './sets/sets.module';
+import { StatisticsModule } from './statistics/statistics.module';
 
 @Module({
   imports: [
@@ -40,7 +41,8 @@ import { SetsModule } from './sets/sets.module';
     // MessagesModule,
     CloudinaryModule,
     CompletedSetsModule,
-    SetsModule
+    SetsModule,
+    StatisticsModule
   ],
   controllers: [AppController],
   providers: [AppService,

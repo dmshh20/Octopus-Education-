@@ -46,7 +46,6 @@ const Courses = () => {
                     'Content-Type': 'application/json'
                 }
             })
-            console.log(request.data);
             
             if (request.data.message === 'Insufficient funds') {
                 setError('Insufficient funds')
