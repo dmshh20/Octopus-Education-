@@ -16,8 +16,6 @@ interface StatisticsResponse {
   getAllSets: any[]
 }
 
-
-
 const Profile = () => {
     const [statisticsData, setStatisticsData] = useState<StatisticsResponse | undefined>()
     const [fullName, setFullname] = useState<string | undefined>(undefined)
@@ -151,7 +149,6 @@ const Profile = () => {
                         datasets: [
                         {
                             label: "Пройдено",
-                            // data: [10, 1, 7, 20, 6],
                             data: statisticsData?.statistics.map((stat) => stat.count),
                             backgroundColor: [
                             "rgba(43, 63, 229, 0.8)",
@@ -159,17 +156,14 @@ const Profile = () => {
                             "rgba(253, 135, 135, 0.8)",
                             "rgba(102, 255, 102, 0.74)",
                             "rgba(75, 192, 192, 0.8)",
-                            // "rgba(255, 159, 64, 0.8)",
                             ],
                             borderColor: [
                             "rgba(43, 63, 229, 0.8)",
                             "rgba(250, 192, 19, 0.8)",
                             "rgba(253, 135, 135, 0.8)",
-                            // "rgba(153, 102, 255, 0.8)",
                             "rgba(102, 255, 102, 0.74)",
 
                             "rgba(75, 192, 192, 0.8)",
-                            // "rgba(255, 159, 64, 0.8)",    
                             ],
                         },
                         ],
