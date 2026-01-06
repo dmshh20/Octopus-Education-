@@ -41,13 +41,13 @@ const TrialSession = () => {
   return (
     <section className="trial-session-container">
       <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>
-        Пробні заняття ({sessions.length})
+       Trial classes ({sessions.length})
       </h2>
 
       <div className="sessions-list">
         {sessions.length === 0 ? (
           <p style={{ textAlign: 'center', color: '#aaa' }}>
-            Поки нічого немає. Очікуйте...
+            Nothing yet. Please wait...
           </p>
         ) : (
           sessions.map((session) => (

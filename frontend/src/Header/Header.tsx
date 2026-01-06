@@ -65,7 +65,7 @@ export default function Header() {
 
 
           <Link to='/courses' style={{color: "white", textDecoration: 'none'}}>
-            <li>Курси </li>
+            <li>Courses </li>
           </Link>
           {isLoggedIn ? (
             <div>

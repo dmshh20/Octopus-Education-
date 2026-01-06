@@ -84,7 +84,7 @@ const Courses = () => {
   return (
     <section className='section-courses'>
          
-         <h1 className='courses-info'>Всі доступні курси для кожного рівня</h1>
+         <h1 className='courses-info'>All available courses for each level</h1>
 
         <div className='available-courses'>
             {sets.map((set) => {
@@ -101,7 +101,7 @@ const Courses = () => {
                   <p>Потрібно {set.starsToUnlock} <i className="fa-solid fa-shrimp locked-set"></i></p>
                 </div>
                 : 
-                  <button onClick={() => setSelectedSet(set)} className='start-course'>Розпочати</button>
+                  <button onClick={() => setSelectedSet(set)} className='start-course'>Start</button>
                 }                
             
 
@@ -115,8 +115,8 @@ const Courses = () => {
 ``
             <UnlockedSet open={!!isLockedSet} onClose={openUnlockedModal} error={() => setError(true)} >
                 <div className='unlockedScreen'>
-                    <h1 className='unlockedSetName unlockedSetNamePadding'>Відкрити "{isLockedSet?.title}" ?</h1>
-                    <h1 className='unlockedSetName'>Це коштує {isLockedSet?.starsToUnlock}  <i className="fa-solid fa-shrimp unlocked-shrimp"></i></h1>
+                    <h1 className='unlockedSetName unlockedSetNamePadding'>Open "{isLockedSet?.title}" ?</h1>
+                    <h1 className='unlockedSetName'>It costs {isLockedSet?.starsToUnlock}  <i className="fa-solid fa-shrimp unlocked-shrimp"></i></h1>
 
                     <div className='buyAndErrorButton'>
                         <button className='confirmBuySet' onClick={() => buyLockedSet(isLockedSet?.starsToUnlock, isLockedSet?.id)}>Купити</button>
