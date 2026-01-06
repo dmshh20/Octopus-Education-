@@ -33,11 +33,14 @@
     margin-top: 10px;
 }
 
-    /* 
-    .imageProfile {
-        height: 50px;
-        position: absolute;
-        right: 50px;
-        top: 25px;
-        cursor: pointer;
-    } */
+.completedSets {
+    font-size: 15px;
+    color: white;
+    padding: 20px;
+    font-weight: 200;
+}
+ 
+.fa-flag-checkered {
+    color: #035d67;
+    /* color: #00424d; */
+}

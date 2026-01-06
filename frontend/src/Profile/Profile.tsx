@@ -1,29 +1,48 @@
 import './Profile.css'
 import { Chart as ChartJS } from 'chart.js/auto'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Doughnut } from 'react-chartjs-2'
 import axios from 'axios'
 import { useAuth } from '../Auth/AuthContext'
 import { useUpdateProfile } from '../context/UpdateImageContext'
 
+interface setStat {
+  setName: string
+  count: number
+}
+
+interface StatisticsResponse {
+  statistics: setStat[]
+  getAllSets: any[]
+}
+
+
+
 const Profile = () => {
+    const [statisticsData, setStatisticsData] = useState<StatisticsResponse | undefined>()
+    const [fullName, setFullname] = useState<string | undefined>(undefined)
     const fileUploadRef = useRef<HTMLInputElement>(null)
     const { isLoggedIn } = useAuth()
     const { setImage, image } = useUpdateProfile()
+    const token = localStorage.getItem('access_token')
     
+
     useEffect( () =>  {
-      const token = localStorage.getItem('access_token')
       if (!token) {
         return
       }
       const getUserData = async () => {
+       try {
         const response = await axios.get(import.meta.env.VITE_USER_ME, 
           { 
             headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${localStorage.getItem('access_token')}`
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
             }
         })
+
+        const myName = response.data.firstName + ' ' + response.data.secondName
+        setFullname(String(myName))
 
        if (response.data.profileUrl) {
         setImage(response.data.profileUrl)
@@ -33,8 +52,26 @@ const Profile = () => {
         if (!response.data) {
           throw new Error('error in reponse')
         }
+       } catch(error) {
+          throw Error('Failed in getting User info')
+       }
       }
-        
+
+      const getUserStatistic = async () => {
+        try {                          
+          const response = await axios.get(import.meta.env.VITE_STATISTICS, { headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }}) 
+
+
+          setStatisticsData(response.data)
+        } catch(error) {
+          throw Error('Failed in getting User Statistic')
+        }
+      }
+      
+        getUserStatistic()
         getUserData()
     }, [isLoggedIn])  
 
@@ -89,7 +126,9 @@ const Profile = () => {
                         objectFit: 'cover',
                     }}
                 ></img>
-                <h1>Artem Dmysh</h1>
+                <div>
+                <h1>{fullName}</h1>
+                </div>
                       <input
                         ref={fileUploadRef}
                         onChange={handleUploadImage}
@@ -100,23 +139,26 @@ const Profile = () => {
                         />
                 </div>
 
+                    <h2 className='completedSets'><i className="fa-solid fa-flag-checkered"></i> Completed sets {statisticsData?.getAllSets.length} (only for stars)</h2>
             </div>
 
 
             <div className="statistics">
+
                     <Doughnut className='chart'
                     data={{
-                        labels: ['A1', 'B1', 'B2', 'C1'],
+                        labels: ['A1','A2', 'B1', 'B2', 'C1'],
                         datasets: [
                         {
-                            label: "Ccount",
-                            data: [200, 100, 80, 110],
+                            label: "Пройдено",
+                            // data: [10, 1, 7, 20, 6],
+                            data: statisticsData?.statistics.map((stat) => stat.count),
                             backgroundColor: [
                             "rgba(43, 63, 229, 0.8)",
                             "rgba(250, 192, 19, 0.8)",
                             "rgba(253, 135, 135, 0.8)",
                             "rgba(102, 255, 102, 0.74)",
-                            // "rgba(75, 192, 192, 0.8)",
+                            "rgba(75, 192, 192, 0.8)",
                             // "rgba(255, 159, 64, 0.8)",
                             ],
                             borderColor: [
@@ -126,7 +168,7 @@ const Profile = () => {
                             // "rgba(153, 102, 255, 0.8)",
                             "rgba(102, 255, 102, 0.74)",
 
-                            // "rgba(75, 192, 192, 0.8)",
+                            "rgba(75, 192, 192, 0.8)",
                             // "rgba(255, 159, 64, 0.8)",    
                             ],
                         },

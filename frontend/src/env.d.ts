@@ -9,6 +9,7 @@ interface ImportMetaEnv {
   readonly VITE_COUNT_STARS: string
   readonly VITE_GET_SETS: string
   readonly VITE_BUYING_SET: string
+  readonly VITE_STATISTICS: string
 }
 
 
