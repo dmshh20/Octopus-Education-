@@ -9,6 +9,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 80px;
+    /* width: 100%; */
 }
 
 .header h1 {
@@ -39,4 +40,32 @@
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.imageProfile {
+    height: 50px;
+    position: absolute;
+    right: 50px;
+    top: 25px;
+    cursor: pointer;
+}
+
+
+.fa-shrimp {
+    font-size: 24px;
+    cursor: pointer;
+    color: #F75270;
+    position: absolute;
+
+}
+.countOfStars {
+    position: relative;
+    background-color: lightblue;
+    left: 17px;
+    bottom: 14px;
+    border-radius: 4px;
+    padding: 2px;  
+    font-size: 13px;  
+    cursor: pointer;
+    color: #0a0a23;
 }

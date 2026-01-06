@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Form } from 'src/entities/form.entity';
 import { Repository } from 'typeorm';
@@ -13,6 +13,12 @@ export class FormService {
     ) {}
 
     async processForm(body: FormDto) {
+
+        const existinguser = await this.formRepository.findOneBy({email: body.email})
+        if (existinguser) {
+            throw new ConflictException('Trial Session already was sent')
+        }
+
         const createTrialSession = this.formRepository.create({
             firstName: body.firstName,
             secondName: body.secondName,

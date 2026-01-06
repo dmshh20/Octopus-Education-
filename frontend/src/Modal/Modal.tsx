@@ -1,20 +1,20 @@
-import React, { useEffect } from 'react'; // 👈 Import useEffect
+import { type ReactNode } from 'react'; 
 import './Modal.css';
+import { handleEscape } from '../hooks/handleEscape';
+import { handleOffScroll } from '../hooks/handleOffScroll';
 
-const Modal = ({ open, children, onClose, error }: any) => {
+interface ModalProps {
+    open: boolean
+    children: ReactNode
+    onClose: () => void
+    error: () => void
+}
 
-    useEffect(() => {
-        if (open) {
-           document.body.classList.add('off-scroll') 
-        } else {
-            document.body.classList.remove('off-scroll')
-        }
+const Modal = ({ open, children, onClose, error }: ModalProps) => {
 
-        return () => {
-            document.body.classList.remove('off-scroll')
-        }
-    }, [open])
     
+    handleOffScroll(open)
+    handleEscape(open, onClose)
 
     if (!open) return null;
 
@@ -26,8 +26,7 @@ const Modal = ({ open, children, onClose, error }: any) => {
     return (
         <>
             <div className='overlay_style' onClick={handleClose} />
-
-            <div className='modalStyles'>
+            <div className='modalStyles' onClick={(e) => e.stopPropagation()}>
                 <button onClick={handleClose} className='closeModal'><i className="fa-solid fa-xmark"></i></button>
                 {children}
             </div>

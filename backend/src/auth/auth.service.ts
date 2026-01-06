@@ -7,7 +7,8 @@ import * as bcrypt from 'bcrypt'
 import { SignInDto } from './dto/signIn.dto.entity';
 import { JwtService } from '@nestjs/jwt';
 import { Role } from 'src/entities/role.entity';
-import { Form } from 'src/entities/form.entity';
+import { reSendEmail } from 'src/emails/resend';
+import { getUserData } from './dto/getUserData.dto';
 
 @Injectable()
 export class AuthService {
@@ -48,6 +49,12 @@ export class AuthService {
 
             const savedUser = await this.userRepository.save(user);
 
+           try {
+            reSendEmail(user.firstName) 
+           } catch(errorEmail) {
+            console.error(errorEmail);
+           }
+
             // Return user data without password
             const { password, ...userWithoutPassword } = savedUser;
 
@@ -76,7 +83,7 @@ export class AuthService {
                 throw new BadRequestException('User does not exist')
              }
              
-             const payload = {email: existingUser.email, roleId: existingUser.role.roleId}
+             const payload = {id: existingUser.id, email: existingUser.email, roleId: existingUser.role.roleId}
              const accessToken = await this.jwt.sign(payload)
              const refreshToken = await this.jwt.sign(payload, {
                 expiresIn: '3h'
@@ -89,7 +96,6 @@ export class AuthService {
              }
 
         } catch(error) {
-            console.log(error);
             throw new HttpException({
                 status: HttpStatus.INTERNAL_SERVER_ERROR,
                 error: 'error in sign in',
@@ -99,4 +105,19 @@ export class AuthService {
         }
     }
 
+    async getUserData(user: getUserData) {
+        try {
+            const userData = await this.userRepository.findOneBy({id: user.id})
+                
+            if (!userData) {
+                throw new Error('User is not found')
+            }
+
+            const { password, ...newData} = userData
+
+            return newData
+        } catch(error) {
+            throw new Error('Error Getting User Data', error)
+        }
+    }
 }

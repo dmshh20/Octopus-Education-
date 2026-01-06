@@ -1,6 +1,9 @@
 import { Column, Entity, Index, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Role } from "./role.entity";
-
+import { IsOptional, IsUrl } from "class-validator";
+import { CompletedSets } from "./completedSet.entity";
+import { UserPurchase } from "./userPurchase";
+    
 @Entity('users')
 export class User {
     @PrimaryGeneratedColumn()
@@ -22,4 +25,17 @@ export class User {
     @ManyToOne(() => Role, (role) => role.role)
     role: Role
 
+    @IsUrl()
+    @IsOptional()
+    @Column({nullable: true})
+    profileUrl: string
+
+    @Column({type: 'integer', default: 0})
+    stars: number
+
+    @OneToMany(() => CompletedSets, (completed) => completed.user, { onDelete: 'CASCADE' })
+    completedSets: CompletedSets[]
+
+    @OneToMany(() => UserPurchase, (purchase) => purchase.userId)
+    userPurchasedId: UserPurchase
 }
