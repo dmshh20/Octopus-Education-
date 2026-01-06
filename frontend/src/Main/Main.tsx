@@ -80,10 +80,10 @@ export default function Main() {
         <div className='firstStage'>
               <div className='inside-first'>
 
-                <h1 className='about-school'>Онлайн-школа, де ти досягнеш цілі</h1>
-                <div className='school-features1'>Безкоштовний пробний урок</div>
-                <div className='school-features2'>Гнучкий графік занять</div>
-                <div className='school-features3'>Індивідуальна програма навчання</div>
+                <h1 className='about-school'>An online school where you will achieve your goals</h1>
+                <div className='school-features1'>Free trial lesson</div>
+                <div className='school-features2'>Flexible class schedule</div>
+                <div className='school-features3'>Individual training program</div>
               </div>
             
               <img src={mainPhoto} alt="" className='mainPhoto' />
@@ -97,34 +97,34 @@ export default function Main() {
 
           <div className='step'>
             <img src={mail} alt="" className='step-icon' />
-            <p>Ви відправляєте коротку форму заявки</p>
+            <p>You submit a short application form</p>
           </div>
               <i className="fa-solid fa-arrow-right"></i>
 
             <div className='step'>
             <img src={workFrontComputer} alt="" className='step-icon' />
-            <p>Наша команда турботи дізнається всі ваші потреби та побажання</p>
+            <p>Our care team will learn all your needs and wishes</p>
           </div>
               <i className="fa-solid fa-arrow-right"></i>
             <div className='step'>
             <img src={teacher} alt="" className='step-icon' />
-            <p>Ви проходите безкоштовний пробний урок з викладачем, якого для вас підібрали</p>
+            <p>You take a free trial lesson with a teacher selected for you</p>
           </div>
               <i className="fa-solid fa-arrow-right"></i>
     
             <div className='step'>
             <img src={shake} alt="" className='step-icon' />
-            <p>Ви приймаєте рішення чи продовжувати навчання з цим викладачем</p>
+            <p>You decide whether to continue studying with this teacher.</p>
           </div>
 
         </div>
 
           <div className='button-wrapper-styles'>
-             <button onClick={openModal} className='trial-session'>Записатися на пробне заняття</button>
+             <button onClick={openModal} className='trial-session'>Sign up for a trial lesson</button>
 
               <Modal open={isOpen} onClose={() => setIsOpen(false)} error={() => setError(true)}>
                   <div className='enroll-form' >
-                    <h1 className='message-fill-in-the-form'>Заповніть форму для зв'язку з репетитором</h1>
+                    <h1 className='message-fill-in-the-form'>Fill out the form to contact a tutor</h1>
 
 
                       <form className='enroll-session-form' onSubmit={handleSubmit}>
@@ -144,7 +144,7 @@ export default function Main() {
 
                         </div>
                           {error && <b style={{color: '#DC0000', textAlign: 'center', marginBottom: '20px'}}>{error}<br /></b>}
-                        <button type='submit' className='enroll-to-the-session'>Записатися</button>
+                        <button type='submit' className='enroll-to-the-session'>Enroll</button>
 
                           <Link to='/signup'>Create an account</Link>
                             
